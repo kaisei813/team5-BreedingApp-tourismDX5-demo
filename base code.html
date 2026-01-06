@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>飼育管理アプリ</title>
+
+  <!-- CSS読み込み -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="app">
+
+    <header>
+        <img src="images/DMM KARIYUSHI aq app icon.png" alt="作成者" class="icon">
+        飼育管理アプリ
+    </header>
+
+    <main>
+        <section class="page active" id="home">
+            <div class="menu">
+                <button class="menu-button manage" onclick="showPage('management')">飼育管理</button>
+                <button class="menu-button list" onclick="showPage('tasklist')">タスクリスト</button>
+                <button class="menu-button manual" onclick="showPage('manual')">マニュアル</button>
+                <button class="menu-button datacon" onclick="showPage('datacontrol')">データ管理</button>
+                <button class="menu-button setting" onclick="showPage('other')">設定</button>
+            </div>
+        </section>
+
+        <section class="page" id="management">
+            <h2>生物選択画面</h2>
+            <div class="search-card">
+                <p>管理したい生物を選択</p>
+                <!--検索UI-->
+                <div class="search-ui1 tag-row">
+                    <label>名前検索:</label>
+                    <input type="text" id="searchInput" placeholder="名前で検索">
+                    <br>
+                </div>
+                <div class="search-ui tag-row">
+                    <label>タグ検索:</label>
+                    <select id="tagFilter1">
+                        <option value="">全てのタグ</option>
+                        <option value="カフーの森">カフーの森</option>
+                        <option value="ぐまさんケーブ">ぐまさんケーブ</option>
+                        <option value="ちゅらさんリーフ">ちゅらさんリーフ</option>
+                        <option value="海かじテラス">海かじテラス</option>
+                        <option value="クラゲよんなー">クラゲよんなー</option>
+                    </select>
+                    <select id="tagFilter2">
+                        <option value="">全ての分類</option>
+                        <option value="魚類">魚類</option>
+                        <option value="爬虫類">爬虫類</option>
+                        <option value="サンゴ">サンゴ</option>
+                        <option value="鳥類">鳥類</option>
+                        <option value="哺乳類">哺乳類</option>
+                        <option value="無脊椎動物">無脊椎動物</option>
+                    </select>
+                    <br>
+                </div>
+                <button id="searchButton">検索</button>
+            </div>
+            <!-- サブメニュー -->
+            <div class="sub-menu">
+                <button class="sub-button strixvaria" data-name="アメリカフクロウ" data-tags1="カフーの森" data-tags2="フクロウ" onclick="showPage('management-strixvaria')">アメリカフクロウ</button>
+                <button class="sub-button phycoc" data-name="インドシナウォータードラゴン" data-tags1="ぐまさんケーブ" data-tags2="爬虫類" onclick="showPage('management-phycoc')">インドシナウォータードラゴン</button>
+                <button class="sub-button turtle" data-name="ウミガメ" data-tags1="ちゅらさんリーフ" data-tags2="爬虫類" onclick="showPage('management-turtle')">ウミガメ</button>
+                <button class="sub-button strophidonsat" data-name="オオガウツボ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-strophidonsat')">オオガウツボ</button>
+                <button class="sub-button catalaphylliajard" data-name="オオナガレハナサンゴ" data-tags1="海かじテラス" data-tags2="サンゴ" onclick="showPage('management-catalaphylliajard')">オオナガレハナサンゴ</button>
+                <button class="sub-button parypeneusmulti" data-name="オジサン" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-parypeneusmulti')">オジサン</button>
+                <button class="sub-button amphiprionocel" data-name="カクレクマノミ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-amphiprionocel')">カクレクマノミ</button>
+                <button class="sub-button garrarufa" data-name="ガラ・ルファ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-garrarufa')">ガラ・ルファ</button>
+                <button class="sub-button ostpro" data-name="キンセンイシモチ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-ostpro')">キンセンイシモチ</button>
+                <button class="sub-button rastrelligerkan" data-name="グルクマ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-rastrelligerkan')">グルクマ</button>
+                <button class="sub-button geochelone" data-name="ケヅメリクガメ" data-tags1="海かじテラス" data-tags2="爬虫類" onclick="showPage('management-geochelone')">ケヅメリクガメ</button>
+                <button class="sub-button phenacogrammus" data-name="コンゴテトラ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-phenacogrammus')">コンゴテトラ</button>
+                <button class="sub-button anasplatyrhynchos" data-name="コールダック" data-tags1="海かじテラス" data-tags2="鳥類" onclick="showPage('management-anasplatyrhynchos')">コールダック</button>
+                <button class="sub-button aonyxcinerea" data-name="コツメカワウソ" data-tags1="海かじテラス" data-tags2="哺乳類" onclick="showPage('management-aonyxcinerea')">コツメカワウソ</button>
+                <button class="sub-button buboscandiacus" data-name="シロフクロウ" data-tags1="海かじテラス" data-tags2="鳥類" onclick="showPage('management-buboscandiacus')">シロフクロウ</button>
+                <button class="sub-button macropodusoper" data-name="タイワンキンギョ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-macropodusoper')">タイワンキンギョ</button>
+                <button class="sub-button mastigiaspapua" data-name="タコクラゲ" data-tags1="クラゲよんなー" data-tags2="無脊椎動物" onclick="showPage('management-mastigiaspapua')">タコクラゲ</button>
+                <button class="sub-button heterocongerhassi" data-name="チンアナゴ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-heterocongerhassi')">チンアナゴ</button>
+                <button class="sub-button carchamelano" data-name="ツマグロ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-carchamelano')">ツマグロ</button>
+                <button class="sub-button stegostomafasciatum" data-name="トラフザメ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-stegostomafasciatum')">トラフザメ</button>
+                <button class="sub-button gorgasiapreclara" data-name="ニシキアナゴ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-gorgasiapreclara')">ニシキアナゴ</button>
+                <button class="sub-button amphiprionfrenatus" data-name="ハマクマノミ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-amphiprionfrenatus')">ハマクマノミ</button>
+                <button class="sub-button diodonholocanthus" data-name="ハリセンボン" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-diodonholocanthus')">ハリセンボン</button>
+                <button class="sub-button choloepusdidactrylus" data-name="フタユビナマケモノ" data-tags1="海かじテラス" data-tags2="哺乳類" onclick="showPage('management-choloepusdidactrylus')">フタユビナマケモノ</button>
+                <button class="sub-button spheniscushumboldti" data-name="フンボルトペンギン" data-tags1="海かじテラス" data-tags2="鳥類" onclick="showPage('management-spheniscushumboldti')">フンボルトペンギン</button>
+                <button class="sub-button paleosuchustrigonatus" data-name="ブラジルカイマン" data-tags1="海かじテラス" data-tags2="爬虫類" onclick="showPage('management-paleosuchustrigonatus')">ブラジルカイマン</button>
+                <button class="sub-button susscrofa" data-name="マイクロブタ" data-tags1="海かじテラス" data-tags2="哺乳類" onclick="showPage('management-susscrofa')">マイクロブタ</button>
+                <button class="sub-button aureliacoerulea" data-name="ミズクラゲ" data-tags1="クラゲよんなー" data-tags2="無脊椎動物" onclick="showPage('management-aureliacoerulea')">ミズクラゲ</button>
+                <button class="sub-button moreliaviridis" data-name="ミドリニシキヘビ" data-tags1="海かじテラス" data-tags2="爬虫類" onclick="showPage('management-moreliaviridis')">ミドリニシキヘビ</button>
+                <button class="sub-button suricatesuricatta" data-name="ミーアキャット" data-tags1="海かじテラス" data-tags2="哺乳類" onclick="showPage('management-suricatesuricatta')">ミーアキャット</button>
+                <button class="sub-button arothronstellatus" data-name="モヨウフグ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-arothronstellatus')">モヨウフグ</button>
+                <button class="sub-button chrysipiretacyanea" data-name="ルリスズメダイ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-chrysipiretacyanea')">ルリスズメダイ</button>
+            </div>
+        </section>
+
+        <section class="page" id="management-strixvaria">
+            <h5>部門選択＞魚類部門</h5>
+            魚類部門データ
+            <!--入力フォーム-->
+            <h3>水温</h3>
+            <div id="tempError" class="error-text"></div>
+            <hr>
+            <!--グラフ/異常値識別-->
+            <canvas id="feedChart"></canvas>
+            <h4>異常値一覧</h4>
+            <div id="abnormalList"></div>
+
+            <!--日誌-->
+            <h3>日付選択</h3>
+            <input type="date" id="calendarDate">
+            <button onclick="openDailySheet()">日誌を書く</button>
+        </section>
+        <!--日誌詳細ページ-->
+        <section class="page" id="daily-sheet">
+            <h2>日別詳細</h2>
+
+            <p id="sheetDate"></p>
+            <br>
+            <div class="sheetDate">
+                <label>
+                    担当➀：<input type ="text" id="sheetStaff1" class="staff-input">
+                    担当➁：<input type ="text" id="sheetStaff2" class="staff-input">
+                </label>
+            </div>
+            <h3>環境データ</h3>
+            <table id="dailyTable" border="1">
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>値</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>水温(℃)</td>
+                        <td><input type="number" id="sheetTemp"></td>
+                    </tr>
+                    <tr>
+                        <td>湿度(%)</td>
+                        <td><input type="number" id="sheetHumidity"></td>
+                    </tr>
+                    <tr>
+                        <td>餌総量(g)</td>
+                        <td><input type="number" id="sheetFood"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <br>
+
+            <h3>飼育記録</h3>
+            <table id="fishTable" border="1">
+                <thead>
+                    <tr>
+                        <th class="fish-number">No</th>
+                        <th class="fish-name">固体</th>
+                        <th class="fish-food">餌(g)</th>
+                        <th class="fish-situation">状態</th>
+                        <th class="fish-action">行動記録</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="fish-number">01</td>
+                        <td class="fish-name">熱帯魚</td>
+                        <td class="fish-food"><input type="text" class="text-food"></td>
+                        <td class="fish-situation">
+                            <select>
+                                <option>良好</option>
+                                <option>注意</option>
+                                <option>異常</option>
+                                <option>危険</option>
+                            </select>
+                        </td>
+                        <td class="fish-action"><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="fish-number">02</td>
+                        <td class="fish-name">淡水魚</td>
+                        <td class="fish-food"><input type="text" class="text-food"></td>
+                        <td class="fish-situation">
+                            <select>
+                                <option>良好</option>
+                                <option>注意</option>
+                                <option>異常</option>
+                                <option>危険</option>
+                            </select>
+                        </td>
+                        <td class="fish-action"><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="fish-number">03</td>
+                        <td class="fish-name">サメ</td>
+                        <td class="fish-food"><input type="text" class="text-food"></td>
+                        <td class="fish-situation">
+                            <select>
+                                <option>良好</option>
+                                <option>注意</option>
+                                <option>異常</option>
+                                <option>危険</option>
+                            </select>
+                        </td>
+                        <td class="fish-action"><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="fish-number">04</td>
+                        <td class="fish-name">ヒトデ</td>
+                        <td class="fish-food"><input type="text" class="text-food"></td>
+                        <td class="fish-situation">
+                            <select>
+                                <option>良好</option>
+                                <option>注意</option>
+                                <option>異常</option>
+                                <option>危険</option>
+                            </select>
+                        </td>
+                        <td class="fish-action"><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="fish-number">05</td>
+                        <td class="fish-name">海月</td>
+                        <td class="fish-food"><input type="text" class="text-food"></td>
+                        <td class="fish-situation">
+                            <select>
+                                <option>良好</option>
+                                <option>注意</option>
+                                <option>異常</option>
+                                <option>危険</option>
+                            </select>
+                        </td>
+                        <td class="fish-action"><input type="text"></td>
+                    </tr>
+                    <tr>
+                        <td class="fish-number">06</td>
+                        <td class="fish-name">ウミガメ</td>
+                        <td class="fish-food"><input type="text" class="text-food"></td>
+                        <td class="fish-situation">
+                            <select>
+                                <option>良好</option>
+                                <option>注意</option>
+                                <option>異常</option>
+                                <option>危険</option>
+                            </select>
+                        </td>
+                        <td class="fish-action"><input type="text"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            メモ：<br>
+            <textarea id="sheetMemo"></textarea><br>
+
+            <button onclick="saveDailyRecord()">保存</button>
+        </section>
+
+        <section class="page" id="management-reptiles">
+            <h5>部門選択＞爬虫類-両生類部門</h5>
+            爬虫類-両生類部門データ
+        </section>
+        <section class="page" id="management-birds">
+            <h5>部門選択＞鳥類部門</h5>
+            鳥類部門データ
+        </section>
+        <section class="page" id="management-mammalian">
+            <h5>部門選択＞哺乳類部門</h5>
+            哺乳類部門データ
+        </section>
+
+        <section class="page" id="phone">
+            <h5>ホーム＞電話帳</h5>
+            <ul class="phone-list">
+                <li>代表<br><a href="tel:09000000000">090-0000-0000</a></li>
+                <li>管理責任者<br><a href="tel:09000000000">090-0000-0000</a></li>
+                <li>班リーダー<br><a href="tel:09000000000">090-0000-0000</a></li>
+                <li>緊急連絡先<br><a href="tel:09000000000">090-0000-0000</a></li>
+                <li>appカスタマーセンター<br><a href="tel:08039511153">0120-000-0000</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+      <button class="footer-btn" onclick="goHome()">🏠<br>ホーム</button>
+      <button class="footer-btn">AI<br>機能</button>
+      <button class="footer-btn" onclick="openPhone()">📞<br>電話</button>
+      <button class="footer-btn" onclick="goBack()">◂<br>戻る</button>
+      <button class="footer-btn" onclick="goForward()">▸<br>進む</button>
+    </footer>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>

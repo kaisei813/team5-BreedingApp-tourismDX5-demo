@@ -1,0 +1,506 @@
+/* 全体設定 */
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* スマホ画面 */
+.app {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ヘッダー */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #4CAF50;
+  color: white;
+
+  height: 56px;
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.icon {
+  height: 40px;
+  width: auto;
+}
+
+.icon {
+  height: 50px;   /* ヘッダー高さを超えない */
+  margin-right: 8px;
+}
+
+
+/* メインエリア（右寄せ縦並び） */
+main {
+  flex: 1;
+  padding: 16px;
+  display: block;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 12px;
+}
+
+/* 共通ボタン */
+.menu-button {
+  height: 75px;
+  width: 100%;
+  border: none;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+/* ボタンごとの色 */
+.menu-button.manage {
+  background-color: #4CAF50;
+}
+
+.menu-button.list {
+  background-color: #FF9800;
+}
+
+.menu-button.manual {
+  background-color: #2196F3;
+}
+
+.menu-button.datacon {
+  background-color: #9C27B0;
+}
+
+.menu-button.setting {
+  background-color: gray;
+}
+
+.menu-button:hover {
+  opacity: 0.85;
+}
+
+.search-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+}
+
+.tag-row{
+  display: flex;
+  gap: 8px;
+}
+
+.tag-row select{
+  flex: 1;
+}
+
+.search-ui1 {
+  margin-bottom: 12px;
+}
+
+.search-ui1 label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.search-ui1 input,
+.search-ui1 select {
+  width: 70%;
+  height: 25px;
+  padding: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.search-ui {
+  margin-bottom: 12px;
+}
+
+.search-ui label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.search-ui input,
+.search-ui select {
+  width: 50%;
+  height: 30px;
+  padding: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.sub-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 6px;
+}
+
+/* 共通ボタン */
+.sub-button {
+  height: 25px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 5%;
+  cursor: pointer;
+  color: white;
+}
+
+/* ボタンごとの色 */
+.sub-button.strixvaria {
+  background-color: #4CAF50;
+}
+
+.sub-button.phycoc {
+  background-color: #FF9800;
+}
+
+.sub-button.turtle {
+  background-color: #2196F3;
+}
+
+.sub-button.strophidonsat {
+  background-color: #9C27B0;
+}
+
+.sub-button.catalaphylliajard {
+  background-color: #9C27B0;
+}
+
+.sub-button.parypeneusmulti {
+  background-color: #9C27B0;
+}
+
+.sub-button.amphiprionocel {
+  background-color: #9C27B0;
+}
+
+.sub-button.garrarufa {
+  background-color: #9C27B0;
+}
+
+.sub-button.ostpro {
+  background-color: #9C27B0;
+}
+
+.sub-button.rastrelligerkan {
+  background-color: #9C27B0;
+}
+
+.sub-button.geochelone {
+  background-color: #9C27B0;
+}
+
+.sub-button.phenacogrammus {
+  background-color: #9C27B0;
+}
+
+.sub-button.anasplatyrhynchos {
+  background-color: #9C27B0;
+}
+
+.sub-button.aonyxcinerea {
+  background-color: #9C27B0;
+}
+
+.sub-button.buboscandiacus {
+  background-color: #9C27B0;
+}
+
+.sub-button.macropodusoper {
+  background-color: #9C27B0;
+}
+
+.sub-button.mastigiaspapua {
+  background-color: #9C27B0;
+}
+
+.sub-button.heterocongerhassi {
+  background-color: #9C27B0;
+}
+
+.sub-button.carchamelano {
+  background-color: #9C27B0;
+}
+
+.sub-button.stegostomafasciatum {
+  background-color: #9C27B0;
+}
+
+.sub-button.gorgasiapreclara {
+  background-color: #9C27B0;
+}
+
+.sub-button.amphiprionfrenatus {
+  background-color: #9C27B0;
+}
+
+.sub-button.diodonholocanthus {
+  background-color: #9C27B0;
+}
+
+.sub-button.choloepusdidactrylus {
+  background-color: #9C27B0;
+}
+
+.sub-button.spheniscushumboldti {
+  background-color: #9C27B0;
+}
+
+.sub-button.paleosuchustrigonatus {
+  background-color: #9C27B0;
+}
+
+.sub-button.susscrofa {
+  background-color: #9C27B0;
+}
+
+.sub-button.aureliacoerulea {
+  background-color: #9C27B0;
+}
+
+.sub-button.moreliaviridis {
+  background-color: #9C27B0;
+}
+
+.sub-button.suricatesuricatta {
+  background-color: #9C27B0;
+}
+
+.sub-button.arothronstellatus {
+  background-color: #9C27B0;
+}
+
+.sub-button.chrysipiretacyanea {
+  background-color: #9C27B0;
+}
+
+.sub-button:hover {
+  opacity: 0.85;
+}
+
+.feed-page {
+  display: none;
+}
+
+.feed-page.active {
+  display: block;
+}
+
+.input-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.input-row label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#feedValue {
+  width: 115px;
+}
+
+/* 異常値の入力欄 */
+.input-error {
+  border: 2px solid red;
+  background-color: #ffe5e5;
+}
+
+/* 警告メッセージ */
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.abnormal-text {
+  color: #d32f2f !important;
+  font-weight: bold;
+}
+
+#abnormalList > div {
+  background: #fff5f5;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+
+.staff-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.staff-input {
+  width: 100px;
+  padding: 1px;
+  font-size: 13px;
+}
+
+#dailyTable {
+  width: 100%;
+  max-width: 360px;
+}
+
+#dailyTable input {
+  width: 90px;
+  padding: 4px;
+}
+
+#dailyTable,
+#fishTable {
+  border-collapse: collapse;
+}
+
+#dailyTable th,
+#dailyTable td,
+#fishTable th,
+#fishTable td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+  overflow: hidden;
+}
+
+#fishTable {
+  width: 100%;
+  max-width: 360px;
+  table-layout: fixed; 
+}
+
+#fishTable th.fish-number,
+#fishTable td.fish-number { width: 10px; }
+#fishTable th.fish-name,
+#fishTable td.fish-name { width: 40px; }
+#fishTable th.fish-food,
+#fishTable td.fish-food { width: 23px; }
+#fishTable th.fish-situation,
+#fishTable td.fish-situation { width: 29px; }
+#fishTable th.fish-action,
+#fishTable td.fish-action { width: 70px; }
+
+#fishTable input,
+#fishTable select {
+  width: 100%;
+  box-sizing: border-box; /* ★ 枠ずれ防止 */
+}
+
+#fishTable input,
+#fishTable select {
+  text-align: center;
+  padding: 3px;
+  font-size: 13px;
+}
+
+.text-food {
+  text-align: center;
+  width: 40px !important;
+ }
+
+#fishTable td:last-child input {
+  width: 110px !important;
+}
+
+/* フッター */
+footer {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #ccc;
+  padding: 10px 0;
+  background-color: #fafafa;
+}
+
+.footer {
+  height: 50px;
+  display: flex;
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid #ccc;
+  background-color: #fafafa;
+}
+
+.footer-btn {
+  flex: 1;
+  height: 100%;
+  border: none;
+  background: none;
+  font-size: 12px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.footer-btn:active {
+  background-color: #e0e0e0;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.phone-list {
+  list-style: none;
+  padding: 0;
+}
+
+.phone-list li {
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+}
+
+.phone-list a {
+  color: #2196F3;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.phone-list a:active {
+  text-decoration: underline;
+}
