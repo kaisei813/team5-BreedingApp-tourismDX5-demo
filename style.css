@@ -177,132 +177,60 @@ main {
 }
 
 /* ボタンごとの色 */
-.sub-button.strixvaria {
+.sub-button.kahunomori {
   background-color: #4CAF50;
 }
 
-.sub-button.phycoc {
+.sub-button.nibuyazoo {
   background-color: #FF9800;
 }
 
-.sub-button.turtle {
+.sub-button.gumasankebu {
   background-color: #2196F3;
 }
 
-.sub-button.strophidonsat {
+.sub-button.cyuraminamo {
   background-color: #9C27B0;
 }
 
-.sub-button.catalaphylliajard {
+.sub-button.touchpuru {
+  background-color: #b02740;
+}
+
+.sub-button.yanbarunomori {
+  background-color: #27b0a7;
+}
+
+.sub-button.pengingusuku {
+  background-color: #92b027;
+}
+
+.sub-button.umikazidomu {
+  background-color: #b0277e;
+}
+
+.sub-button.fureai {
+  background-color: #b05027a4;
+}
+
+.sub-button.bannaisuisou {
+  background-color: #274cb0;
+}
+
+.sub-button.cyurasanrihu {
+  background-color: #4727b0;
+}
+
+.sub-button.uchinadaisuisou {
   background-color: #9C27B0;
 }
 
-.sub-button.parypeneusmulti {
-  background-color: #9C27B0;
+.sub-button.kurageyonna {
+  background-color: #279eb0;
 }
 
-.sub-button.amphiprionocel {
-  background-color: #9C27B0;
-}
-
-.sub-button.garrarufa {
-  background-color: #9C27B0;
-}
-
-.sub-button.ostpro {
-  background-color: #9C27B0;
-}
-
-.sub-button.rastrelligerkan {
-  background-color: #9C27B0;
-}
-
-.sub-button.geochelone {
-  background-color: #9C27B0;
-}
-
-.sub-button.phenacogrammus {
-  background-color: #9C27B0;
-}
-
-.sub-button.anasplatyrhynchos {
-  background-color: #9C27B0;
-}
-
-.sub-button.aonyxcinerea {
-  background-color: #9C27B0;
-}
-
-.sub-button.buboscandiacus {
-  background-color: #9C27B0;
-}
-
-.sub-button.macropodusoper {
-  background-color: #9C27B0;
-}
-
-.sub-button.mastigiaspapua {
-  background-color: #9C27B0;
-}
-
-.sub-button.heterocongerhassi {
-  background-color: #9C27B0;
-}
-
-.sub-button.carchamelano {
-  background-color: #9C27B0;
-}
-
-.sub-button.stegostomafasciatum {
-  background-color: #9C27B0;
-}
-
-.sub-button.gorgasiapreclara {
-  background-color: #9C27B0;
-}
-
-.sub-button.amphiprionfrenatus {
-  background-color: #9C27B0;
-}
-
-.sub-button.diodonholocanthus {
-  background-color: #9C27B0;
-}
-
-.sub-button.choloepusdidactrylus {
-  background-color: #9C27B0;
-}
-
-.sub-button.spheniscushumboldti {
-  background-color: #9C27B0;
-}
-
-.sub-button.paleosuchustrigonatus {
-  background-color: #9C27B0;
-}
-
-.sub-button.susscrofa {
-  background-color: #9C27B0;
-}
-
-.sub-button.aureliacoerulea {
-  background-color: #9C27B0;
-}
-
-.sub-button.moreliaviridis {
-  background-color: #9C27B0;
-}
-
-.sub-button.suricatesuricatta {
-  background-color: #9C27B0;
-}
-
-.sub-button.arothronstellatus {
-  background-color: #9C27B0;
-}
-
-.sub-button.chrysipiretacyanea {
-  background-color: #9C27B0;
+.sub-button.hizyuru {
+  background-color: #b02785;
 }
 
 .sub-button:hover {
@@ -332,6 +260,10 @@ main {
 
 #feedValue {
   width: 115px;
+}
+
+.error-text2 {
+  color: red;
 }
 
 /* 異常値の入力欄 */
