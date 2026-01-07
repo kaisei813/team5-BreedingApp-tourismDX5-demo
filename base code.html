@@ -31,70 +31,56 @@
         <section class="page" id="management">
             <h2>生物選択画面</h2>
             <div class="search-card">
-                <p>管理したい生物を選択</p>
+                <p>担当エリアを選択</p>
                 <!--検索UI-->
-                <div class="search-ui1 tag-row">
+                <!--<div class="search-ui1 tag-row">
                     <label>名前検索:</label>
                     <input type="text" id="searchInput" placeholder="名前で検索">
                     <br>
-                </div>
+                </div>-->
                 <div class="search-ui tag-row">
                     <label>タグ検索:</label>
                     <select id="tagFilter1">
-                        <option value="">全てのタグ</option>
+                        <option value="">1F 未選択</option>
                         <option value="カフーの森">カフーの森</option>
+                        <option value="にーぶやーズー">にーぶやーズー</option>
                         <option value="ぐまさんケーブ">ぐまさんケーブ</option>
-                        <option value="ちゅらさんリーフ">ちゅらさんリーフ</option>
-                        <option value="海かじテラス">海かじテラス</option>
-                        <option value="クラゲよんなー">クラゲよんなー</option>
+                        <option value="ちゅらみなも">ちゅらみなも</option>
+                        <option value="タッチプール">タッチプール</option>
+                        <option value="やんばるの森">やんばるの森</option>
+                        <option value="ペンギンぐすく">ペンギンぐすく</option>
+                        <option value="うみかじドーム">うみかじドーム</option>
                     </select>
                     <select id="tagFilter2">
-                        <option value="">全ての分類</option>
-                        <option value="魚類">魚類</option>
-                        <option value="爬虫類">爬虫類</option>
-                        <option value="サンゴ">サンゴ</option>
-                        <option value="鳥類">鳥類</option>
-                        <option value="哺乳類">哺乳類</option>
-                        <option value="無脊椎動物">無脊椎動物</option>
+                        <option value="">2F 未選択</option>
+                        <option value="ふれあい広場tetote">ふれあい広場tetote</option>
+                        <option value="ばんない水槽">ばんない水槽</option>
+                        <option value="ちゅらさんリーフ">ちゅらさんリーフ</option>
+                        <option value="うちなー大水槽">うちなー大水槽</option>
+                        <option value="クラゲよんなー">クラゲよんなー</option>
+                        <option value="ひじゅるーコーナー">ひじゅるーコーナー</option>
                     </select>
                     <br>
                 </div>
+                <p class="error-text2">※1Fと2Fの同時検索は不可</p>
                 <button id="searchButton">検索</button>
             </div>
             <!-- サブメニュー -->
             <div class="sub-menu">
-                <button class="sub-button strixvaria" data-name="アメリカフクロウ" data-tags1="カフーの森" data-tags2="フクロウ" onclick="showPage('management-strixvaria')">アメリカフクロウ</button>
-                <button class="sub-button phycoc" data-name="インドシナウォータードラゴン" data-tags1="ぐまさんケーブ" data-tags2="爬虫類" onclick="showPage('management-phycoc')">インドシナウォータードラゴン</button>
-                <button class="sub-button turtle" data-name="ウミガメ" data-tags1="ちゅらさんリーフ" data-tags2="爬虫類" onclick="showPage('management-turtle')">ウミガメ</button>
-                <button class="sub-button strophidonsat" data-name="オオガウツボ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-strophidonsat')">オオガウツボ</button>
-                <button class="sub-button catalaphylliajard" data-name="オオナガレハナサンゴ" data-tags1="海かじテラス" data-tags2="サンゴ" onclick="showPage('management-catalaphylliajard')">オオナガレハナサンゴ</button>
-                <button class="sub-button parypeneusmulti" data-name="オジサン" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-parypeneusmulti')">オジサン</button>
-                <button class="sub-button amphiprionocel" data-name="カクレクマノミ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-amphiprionocel')">カクレクマノミ</button>
-                <button class="sub-button garrarufa" data-name="ガラ・ルファ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-garrarufa')">ガラ・ルファ</button>
-                <button class="sub-button ostpro" data-name="キンセンイシモチ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-ostpro')">キンセンイシモチ</button>
-                <button class="sub-button rastrelligerkan" data-name="グルクマ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-rastrelligerkan')">グルクマ</button>
-                <button class="sub-button geochelone" data-name="ケヅメリクガメ" data-tags1="海かじテラス" data-tags2="爬虫類" onclick="showPage('management-geochelone')">ケヅメリクガメ</button>
-                <button class="sub-button phenacogrammus" data-name="コンゴテトラ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-phenacogrammus')">コンゴテトラ</button>
-                <button class="sub-button anasplatyrhynchos" data-name="コールダック" data-tags1="海かじテラス" data-tags2="鳥類" onclick="showPage('management-anasplatyrhynchos')">コールダック</button>
-                <button class="sub-button aonyxcinerea" data-name="コツメカワウソ" data-tags1="海かじテラス" data-tags2="哺乳類" onclick="showPage('management-aonyxcinerea')">コツメカワウソ</button>
-                <button class="sub-button buboscandiacus" data-name="シロフクロウ" data-tags1="海かじテラス" data-tags2="鳥類" onclick="showPage('management-buboscandiacus')">シロフクロウ</button>
-                <button class="sub-button macropodusoper" data-name="タイワンキンギョ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-macropodusoper')">タイワンキンギョ</button>
-                <button class="sub-button mastigiaspapua" data-name="タコクラゲ" data-tags1="クラゲよんなー" data-tags2="無脊椎動物" onclick="showPage('management-mastigiaspapua')">タコクラゲ</button>
-                <button class="sub-button heterocongerhassi" data-name="チンアナゴ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-heterocongerhassi')">チンアナゴ</button>
-                <button class="sub-button carchamelano" data-name="ツマグロ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-carchamelano')">ツマグロ</button>
-                <button class="sub-button stegostomafasciatum" data-name="トラフザメ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-stegostomafasciatum')">トラフザメ</button>
-                <button class="sub-button gorgasiapreclara" data-name="ニシキアナゴ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-gorgasiapreclara')">ニシキアナゴ</button>
-                <button class="sub-button amphiprionfrenatus" data-name="ハマクマノミ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-amphiprionfrenatus')">ハマクマノミ</button>
-                <button class="sub-button diodonholocanthus" data-name="ハリセンボン" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-diodonholocanthus')">ハリセンボン</button>
-                <button class="sub-button choloepusdidactrylus" data-name="フタユビナマケモノ" data-tags1="海かじテラス" data-tags2="哺乳類" onclick="showPage('management-choloepusdidactrylus')">フタユビナマケモノ</button>
-                <button class="sub-button spheniscushumboldti" data-name="フンボルトペンギン" data-tags1="海かじテラス" data-tags2="鳥類" onclick="showPage('management-spheniscushumboldti')">フンボルトペンギン</button>
-                <button class="sub-button paleosuchustrigonatus" data-name="ブラジルカイマン" data-tags1="海かじテラス" data-tags2="爬虫類" onclick="showPage('management-paleosuchustrigonatus')">ブラジルカイマン</button>
-                <button class="sub-button susscrofa" data-name="マイクロブタ" data-tags1="海かじテラス" data-tags2="哺乳類" onclick="showPage('management-susscrofa')">マイクロブタ</button>
-                <button class="sub-button aureliacoerulea" data-name="ミズクラゲ" data-tags1="クラゲよんなー" data-tags2="無脊椎動物" onclick="showPage('management-aureliacoerulea')">ミズクラゲ</button>
-                <button class="sub-button moreliaviridis" data-name="ミドリニシキヘビ" data-tags1="海かじテラス" data-tags2="爬虫類" onclick="showPage('management-moreliaviridis')">ミドリニシキヘビ</button>
-                <button class="sub-button suricatesuricatta" data-name="ミーアキャット" data-tags1="海かじテラス" data-tags2="哺乳類" onclick="showPage('management-suricatesuricatta')">ミーアキャット</button>
-                <button class="sub-button arothronstellatus" data-name="モヨウフグ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-arothronstellatus')">モヨウフグ</button>
-                <button class="sub-button chrysipiretacyanea" data-name="ルリスズメダイ" data-tags1="海かじテラス" data-tags2="魚類" onclick="showPage('management-chrysipiretacyanea')">ルリスズメダイ</button>
+                <button class="sub-button kahunomori" data-name="カフーの森" data-tags1="カフーの森" onclick="showPage('management-kahunomori')">カフーの森</button>
+                <button class="sub-button nibuyazoo" data-name="にーぶやーズー" data-tags1="にーぶやーズー" onclick="showPage('management-nibuyazoo')">にーぶやーズー</button>
+                <button class="sub-button gumasankebu" data-name="ぐまさんケーブ" data-tags1="ぐまさんケーブ" onclick="showPage('management-gumasankebu')">ぐまさんケーブ</button>
+                <button class="sub-button cyuraminamo" data-name="ちゅらみなも" data-tags1="ちゅらみなも" onclick="showPage('management-cyuraminamo')">ちゅらみなも</button>
+                <button class="sub-button touchpuru" data-name="タッチプール" data-tags1="タッチプール" onclick="showPage('management-touchpuru')">タッチプール</button>
+                <button class="sub-button yanbarunomori" data-name="やんばるの森" data-tags1="やんばるの森" onclick="showPage('management-yanbarunomori')">やんばるの森</button>
+                <button class="sub-button pengingusuku" data-name="ペンギンぐすく" data-tags1="ペンギンぐすく" onclick="showPage('management-pengingusuku')">ペンギンぐすく</button>
+                <button class="sub-button umikazidomu" data-name="うみかじドーム" data-tags1="うみかじドーム" onclick="showPage('management-umikazidomu')">うみかじドーム</button>
+                <button class="sub-button fureai" data-name="ふれあい広場tetote" data-tags2="ふれあい広場tetote" onclick="showPage('management-fureai')">ふれあい広場tetote</button>
+                <button class="sub-button bannaisuisou" data-name="ばんない水槽" data-tags2="ばんない水槽" onclick="showPage('management-bannaisuisou')">ばんない水槽</button>
+                <button class="sub-button cyurasanrihu" data-name="ちゅらさんリーフ" data-tags2="ちゅらさんリーフ" onclick="showPage('management-cyurasanrihu')">ちゅらさんリーフ</button>
+                <button class="sub-button uchinadaisuisou" data-name="うちなー大水槽" data-tags2="うちなー大水槽" onclick="showPage('management-uchinadaisuisou')">うちなー大水槽</button>
+                <button class="sub-button kurageyonna" data-name="クラゲよんなー" data-tags2="クラゲよんなー" onclick="showPage('management-kurageyonna')">クラゲよんなー</button>
+                <button class="sub-button hizyuru" data-name="ひじゅるーコーナー" data-tags2="ひじゅるーコーナー" onclick="showPage('management-hizyuru')">ひじゅるーコーナー</button>
             </div>
         </section>
 
