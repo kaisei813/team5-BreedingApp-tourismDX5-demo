@@ -29,7 +29,7 @@
         </section>
 
         <section class="page" id="management">
-            <h2>生物選択画面</h2>
+            <h2>エリア選択画面</h2>
             <div class="search-card">
                 <p>担当エリアを選択</p>
                 <!--検索UI-->
@@ -40,8 +40,17 @@
                 </div>-->
                 <div class="search-ui tag-row">
                     <label>タグ検索:</label>
-                    <select id="tagFilter1">
+                    <select id="tagFilter2">
                         <option value="">1F 未選択</option>
+                        <option value="ふれあい広場tetote">ふれあい広場tetote</option>
+                        <option value="ばんない水槽">ばんない水槽</option>
+                        <option value="ちゅらさんリーフ">ちゅらさんリーフ</option>
+                        <option value="うちなー大水槽">うちなー大水槽</option>
+                        <option value="クラゲよんなー">クラゲよんなー</option>
+                        <option value="ひじゅるーコーナー">ひじゅるーコーナー</option>
+                    </select>
+                    <select id="tagFilter1">
+                        <option value="">2F 未選択</option>
                         <option value="カフーの森">カフーの森</option>
                         <option value="にーぶやーズー">にーぶやーズー</option>
                         <option value="ぐまさんケーブ">ぐまさんケーブ</option>
@@ -50,15 +59,6 @@
                         <option value="やんばるの森">やんばるの森</option>
                         <option value="ペンギンぐすく">ペンギンぐすく</option>
                         <option value="うみかじドーム">うみかじドーム</option>
-                    </select>
-                    <select id="tagFilter2">
-                        <option value="">2F 未選択</option>
-                        <option value="ふれあい広場tetote">ふれあい広場tetote</option>
-                        <option value="ばんない水槽">ばんない水槽</option>
-                        <option value="ちゅらさんリーフ">ちゅらさんリーフ</option>
-                        <option value="うちなー大水槽">うちなー大水槽</option>
-                        <option value="クラゲよんなー">クラゲよんなー</option>
-                        <option value="ひじゅるーコーナー">ひじゅるーコーナー</option>
                     </select>
                     <br>
                 </div>
@@ -84,178 +84,344 @@
             </div>
         </section>
 
-        <section class="page" id="management-strixvaria">
-            <h5>部門選択＞魚類部門</h5>
-            魚類部門データ
-            <!--入力フォーム-->
-            <h3>水温</h3>
+        <!--カフーの森生物飼育管理ページ-->
+        <section class="page" id="management-kahunomori">
+            <h2>生物選択画面</h2>
+            <div class="search-card2">
+                <p>生物を選択</p>
+                <!--検索UI-->
+                <div class="search-ui2 tag-row2">
+                    <label>タグ検索:</label>
+                    <select id="tagFilter3">
+                        <option value="">未選択</option>
+                        <option value="シロフクロウ">シロフクロウ</option>
+                        <option value="アメリカフクロウ">アメリカフクロウ</option>
+                        <option value="オオカラフクロウ">オオカラフクロウ</option>
+                        <option value="モリフクロウ">モリフクロウ</option>
+                        <option value="メガネフクロウ">メガネフクロウ</option>
+                        <option value="スピックスコノハズク">スピックスコノハズク</option>
+                        <option value="アフリカオオコノハズク">アフリカオオコノハズク</option>
+                        <option value="メンフクロウ">メンフクロウ</option>
+                    </select>
+                </div>
+                <button id="searchButton2">検索</button>
+            </div>
+            <!-- サブメニュー -->
+            <div class="sub-menu2">
+                <button class="sub-button2 shirohuku" data-name="シロフクロウ" data-tags3="シロフクロウ" onclick="showPage('management-shirohuku')">シロフクロウ</button>
+                <button class="sub-button2 amerikahuku" data-name="アメリカフクロウ" data-tags3="アメリカフクロウ" onclick="showPage('management-amerikahuku')">アメリカフクロウ</button>
+                <button class="sub-button2 ookarahuku" data-name="オオカラフクロウ" data-tags3="オオカラフクロウ" onclick="showPage('management-ookarahuku')">オオカラフクロウ</button>
+                <button class="sub-button2 morihuku" data-name="モリフクロウ" data-tags3="モリフクロウ" onclick="showPage('management-morihuku')">モリフクロウ</button>
+                <button class="sub-button2 meganehuku" data-name="メガネフクロウ" data-tags3="メガネフクロウ" onclick="showPage('management-meganehuku')">メガネフクロウ</button>
+                <button class="sub-button2 supikukonohazuku" data-name="スピックスコノハズク" data-tags3="スピックスコノハズク" onclick="showPage('management-supikukonohazuku')">スピックスコノハズク</button>
+                <button class="sub-button2 amerikaookonohazuku" data-name="アメリカオオコノハズク" data-tags3="アメリカオオコノハズク" onclick="showPage('management-amerikaookonohazuku')">アメリカオオコノハズク</button>
+                <button class="sub-button2 menhuku" data-name="メンフクロウ" data-tags3="メンフクロウ" onclick="showPage('management-menhuku')">メンフクロウ</button>
+            </div>
+        </section>
+        <section class="page" id="management-shirohuku">
+            <h2>シロフクロウ管理日誌</h2>
+            <!--
             <div id="tempError" class="error-text"></div>
             <hr>
-            <!--グラフ/異常値識別-->
+            グラフ/異常値識別
             <canvas id="feedChart"></canvas>
             <h4>異常値一覧</h4>
             <div id="abnormalList"></div>
-
+            -->
             <!--日誌-->
-            <h3>日付選択</h3>
-            <input type="date" id="calendarDate">
-            <button onclick="openDailySheet()">日誌を書く</button>
-        </section>
-        <!--日誌詳細ページ-->
-        <section class="page" id="daily-sheet">
-            <h2>日別詳細</h2>
+            <!--<button onclick="openDailySheet()">日誌を書く</button>-->
+            <!--日誌詳細ページ-->
+            <div id="daily-sheet">
+                <h3>日誌担当</h3>
+                <div class="sheetDate">
+                    <p>日付選択:<input type="date" id="calendarDate"></p>
+                    <label>
+                        担当➀：<input type ="text" id="sheetStaff1" class="staff-input"><br>
+                        担当➁：<input type ="text" id="sheetStaff2" class="staff-input">
+                    </label>
+                </div>
+                <h3>環境データ</h3>
+                <table id="dailyTable" border="1">
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>数値</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>室温(℃)</td>
+                            <td><input type="number" id="sheetTemp"></td>
+                        </tr>
+                        <tr>
+                            <td>湿度(%)</td>
+                            <td><input type="number" id="sheetHumidity"></td>
+                        </tr>
+                        <tr>
+                            <td>餌総量(kg)</td>
+                            <td><input type="number" id="sheetFood"></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <p id="sheetDate"></p>
-            <br>
-            <div class="sheetDate">
-                <label>
-                    担当➀：<input type ="text" id="sheetStaff1" class="staff-input">
-                    担当➁：<input type ="text" id="sheetStaff2" class="staff-input">
-                </label>
+                <br>
+
+                <h3>飼育記録</h3>
+                <table id="fishTable" border="1">
+                    <thead>
+                        <tr>
+                            <th class="fish-number">No</th>
+                            <th class="fish-name">個体</th>
+                            <th class="fish-food">餌(g)</th>
+                            <th class="fish-situation">状態</th>
+                            <th class="fish-action">行動記録</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="fish-number">01</td>
+                            <td class="fish-name">熱帯魚</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">02</td>
+                            <td class="fish-name">淡水魚</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">03</td>
+                            <td class="fish-name">サメ</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">04</td>
+                            <td class="fish-name">ヒトデ</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">05</td>
+                            <td class="fish-name">海月</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">06</td>
+                            <td class="fish-name">ウミガメ</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                備考欄：<br>
+                <textarea id="sheetMemo"></textarea>
+                <br>
+
+                <button class="savebutton" onclick="saveDailyRecord()">保存</button>
             </div>
-            <h3>環境データ</h3>
-            <table id="dailyTable" border="1">
-                <thead>
-                    <tr>
-                        <th>項目</th>
-                        <th>値</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>水温(℃)</td>
-                        <td><input type="number" id="sheetTemp"></td>
-                    </tr>
-                    <tr>
-                        <td>湿度(%)</td>
-                        <td><input type="number" id="sheetHumidity"></td>
-                    </tr>
-                    <tr>
-                        <td>餌総量(g)</td>
-                        <td><input type="number" id="sheetFood"></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <br>
-
-            <h3>飼育記録</h3>
-            <table id="fishTable" border="1">
-                <thead>
-                    <tr>
-                        <th class="fish-number">No</th>
-                        <th class="fish-name">固体</th>
-                        <th class="fish-food">餌(g)</th>
-                        <th class="fish-situation">状態</th>
-                        <th class="fish-action">行動記録</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="fish-number">01</td>
-                        <td class="fish-name">熱帯魚</td>
-                        <td class="fish-food"><input type="text" class="text-food"></td>
-                        <td class="fish-situation">
-                            <select>
-                                <option>良好</option>
-                                <option>注意</option>
-                                <option>異常</option>
-                                <option>危険</option>
-                            </select>
-                        </td>
-                        <td class="fish-action"><input type="text"></td>
-                    </tr>
-                    <tr>
-                        <td class="fish-number">02</td>
-                        <td class="fish-name">淡水魚</td>
-                        <td class="fish-food"><input type="text" class="text-food"></td>
-                        <td class="fish-situation">
-                            <select>
-                                <option>良好</option>
-                                <option>注意</option>
-                                <option>異常</option>
-                                <option>危険</option>
-                            </select>
-                        </td>
-                        <td class="fish-action"><input type="text"></td>
-                    </tr>
-                    <tr>
-                        <td class="fish-number">03</td>
-                        <td class="fish-name">サメ</td>
-                        <td class="fish-food"><input type="text" class="text-food"></td>
-                        <td class="fish-situation">
-                            <select>
-                                <option>良好</option>
-                                <option>注意</option>
-                                <option>異常</option>
-                                <option>危険</option>
-                            </select>
-                        </td>
-                        <td class="fish-action"><input type="text"></td>
-                    </tr>
-                    <tr>
-                        <td class="fish-number">04</td>
-                        <td class="fish-name">ヒトデ</td>
-                        <td class="fish-food"><input type="text" class="text-food"></td>
-                        <td class="fish-situation">
-                            <select>
-                                <option>良好</option>
-                                <option>注意</option>
-                                <option>異常</option>
-                                <option>危険</option>
-                            </select>
-                        </td>
-                        <td class="fish-action"><input type="text"></td>
-                    </tr>
-                    <tr>
-                        <td class="fish-number">05</td>
-                        <td class="fish-name">海月</td>
-                        <td class="fish-food"><input type="text" class="text-food"></td>
-                        <td class="fish-situation">
-                            <select>
-                                <option>良好</option>
-                                <option>注意</option>
-                                <option>異常</option>
-                                <option>危険</option>
-                            </select>
-                        </td>
-                        <td class="fish-action"><input type="text"></td>
-                    </tr>
-                    <tr>
-                        <td class="fish-number">06</td>
-                        <td class="fish-name">ウミガメ</td>
-                        <td class="fish-food"><input type="text" class="text-food"></td>
-                        <td class="fish-situation">
-                            <select>
-                                <option>良好</option>
-                                <option>注意</option>
-                                <option>異常</option>
-                                <option>危険</option>
-                            </select>
-                        </td>
-                        <td class="fish-action"><input type="text"></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            メモ：<br>
-            <textarea id="sheetMemo"></textarea><br>
-
-            <button onclick="saveDailyRecord()">保存</button>
         </section>
+        <!--ペンギンぐすく生物管理ページ-->
+        <section class="page" id="management-pengingusuku">
+            <h2>フンボルトペンギン管理日誌</h2>
+            <div id="daily-sheet">
+                <h3>日誌担当</h3>
+                <div class="sheetDate">
+                    <p>日付選択:<input type="date" id="calendarDate"></p>
+                    <label>
+                        担当➀：<input type ="text" id="sheetStaff1" class="staff-input"><br>
+                        担当➁：<input type ="text" id="sheetStaff2" class="staff-input">
+                    </label>
+                </div>
+                <h3>環境データ</h3>
+                <table id="dailyTable" border="1">
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>数値</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>室温(℃)</td>
+                            <td><input type="number" id="sheetTemp"></td>
+                        </tr>
+                        <tr>
+                            <td>湿度(%)</td>
+                            <td><input type="number" id="sheetHumidity"></td>
+                        </tr>
+                        <tr>
+                            <td>餌総量(kg)</td>
+                            <td><input type="number" id="sheetFood"></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <section class="page" id="management-reptiles">
-            <h5>部門選択＞爬虫類-両生類部門</h5>
-            爬虫類-両生類部門データ
+                <br>
+
+                <h3>飼育記録</h3>
+                <table id="fishTable" border="1">
+                    <thead>
+                        <tr>
+                            <th class="fish-number">識別</th>
+                            <th class="fish-name">個体</th>
+                            <th class="fish-food">餌(g)</th>
+                            <th class="fish-situation">状態</th>
+                            <th class="fish-action">行動記録</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="fish-number2">赤赤</td>
+                            <td class="fish-name2"></td>
+                            <td class="fish-food2"><input type="text" class="text-food"></td>
+                            <td class="fish-situation2">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action2"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number2">赤緑</td>
+                            <td class="fish-name2"></td>
+                            <td class="fish-food2"><input type="text" class="text-food"></td>
+                            <td class="fish-situation2">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action2"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number2">黄黄</td>
+                            <td class="fish-name2"></td>
+                            <td class="fish-food2"><input type="text" class="text-food"></td>
+                            <td class="fish-situation2">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action2"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number2">黄緑</td>
+                            <td class="fish-name2"></td>
+                            <td class="fish-food2"><input type="text" class="text-food"></td>
+                            <td class="fish-situation2">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action2"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number2">白黒</td>
+                            <td class="fish-name2"></td>
+                            <td class="fish-food2"><input type="text" class="text-food"></td>
+                            <td class="fish-situation2">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action2"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number2">紫緑</td>
+                            <td class="fish-name2"></td>
+                            <td class="fish-food2"><input type="text" class="text-food"></td>
+                            <td class="fish-situation2">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action2"><input type="text"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                備考欄：<br>
+                <textarea id="sheetMemo"></textarea>
+                <br>
+
+                <button class="savebutton" onclick="saveDailyRecord()">保存</button>
+            </div>
         </section>
-        <section class="page" id="management-birds">
-            <h5>部門選択＞鳥類部門</h5>
-            鳥類部門データ
-        </section>
-        <section class="page" id="management-mammalian">
-            <h5>部門選択＞哺乳類部門</h5>
-            哺乳類部門データ
-        </section>
+        
+
+
+
+
+
 
         <section class="page" id="phone">
             <h5>ホーム＞電話帳</h5>

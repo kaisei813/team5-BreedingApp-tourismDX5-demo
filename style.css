@@ -97,6 +97,14 @@ main {
   opacity: 0.85;
 }
 
+.sub-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 6px;
+}
+
 .search-card {
   background: #fff;
   border-radius: 16px;
@@ -117,7 +125,7 @@ main {
 .search-ui1 {
   margin-bottom: 12px;
 }
-
+/*
 .search-ui1 label {
   display: block;
   font-size: 13px;
@@ -133,7 +141,7 @@ main {
   box-sizing: border-box;
   align-items: center;
 }
-
+*/
 .search-ui {
   margin-bottom: 12px;
 }
@@ -152,14 +160,6 @@ main {
   font-size: 16px;
   box-sizing: border-box;
   align-items: center;
-}
-
-.sub-menu {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  gap: 6px;
 }
 
 /* 共通ボタン */
@@ -262,6 +262,106 @@ main {
   width: 115px;
 }
 
+
+.sub-menu2 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 6px;
+}
+
+.search-card2 {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+}
+
+.tag-row2{
+  display: flex;
+  gap: 8px;
+}
+
+.tag-row2 select{
+  flex: 1;
+}
+
+.search-ui2 {
+  margin-bottom: 12px;
+}
+
+.search-ui2 {
+  margin-bottom: 12px;
+}
+
+.search-ui2 label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.search-ui2 input,
+.search-ui2 select {
+  width: 50%;
+  height: 30px;
+  padding: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+/* 共通ボタン */
+.sub-button2 {
+  height: 25px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 5%;
+  cursor: pointer;
+  color: white;
+}
+
+.sub-button2.shirohuku {
+  background-color: #4CAF50;
+}
+
+.sub-button2.amerikahuku {
+  background-color: #FF9800;
+}
+
+.sub-button2.ookarahuku {
+  background-color: #2196F3;
+}
+
+.sub-button2.morihuku {
+  background-color: #9C27B0;
+}
+
+.sub-button2.meganehuku {
+  background-color: #b02740;
+}
+
+.sub-button2.supikukonohazuku {
+  background-color: #27b0a7;
+}
+
+.sub-button2.amerikaookonohazuku {
+  background-color: #92b027;
+}
+
+.sub-button2.menhuku {
+  background-color: #b0277e;
+}
+
+.sub-button2:hover {
+  opacity: 0.85;
+}
+
 .error-text2 {
   color: red;
 }
@@ -299,18 +399,18 @@ main {
 }
 
 .staff-input {
-  width: 100px;
+  width: 80%;
   padding: 1px;
   font-size: 13px;
 }
 
 #dailyTable {
   width: 100%;
-  max-width: 360px;
+  max-width: 100%;
 }
 
 #dailyTable input {
-  width: 90px;
+  width: 90%;
   padding: 4px;
 }
 
@@ -331,20 +431,20 @@ main {
 
 #fishTable {
   width: 100%;
-  max-width: 360px;
+  max-width: 100%;
   table-layout: fixed; 
 }
 
 #fishTable th.fish-number,
-#fishTable td.fish-number { width: 10px; }
+#fishTable td.fish-number { width: 7%; }
 #fishTable th.fish-name,
-#fishTable td.fish-name { width: 40px; }
+#fishTable td.fish-name { width: 23%; }
 #fishTable th.fish-food,
-#fishTable td.fish-food { width: 23px; }
+#fishTable td.fish-food { width: 15%; }
 #fishTable th.fish-situation,
-#fishTable td.fish-situation { width: 29px; }
+#fishTable td.fish-situation { width: 16%; }
 #fishTable th.fish-action,
-#fishTable td.fish-action { width: 70px; }
+#fishTable td.fish-action { width: 39%; }
 
 #fishTable input,
 #fishTable select {
@@ -361,11 +461,42 @@ main {
 
 .text-food {
   text-align: center;
-  width: 40px !important;
+  width: 95% !important;
  }
 
 #fishTable td:last-child input {
-  width: 110px !important;
+  width: 95% !important;
+}
+
+/*.sheetMemo {
+  width: 100%;
+  height: 60px;
+}*/
+
+/*ペンギンぐすく*/
+#fishTable th.fish-number2,
+#fishTable td.fish-number2 { width: 12%; }
+#fishTable th.fish-name2,
+#fishTable td.fish-name2 { width: 20%; }
+#fishTable th.fish-food2,
+#fishTable td.fish-food2 { width: 15%; }
+#fishTable th.fish-situation2,
+#fishTable td.fish-situation2 { width: 16%; }
+#fishTable th.fish-action2,
+#fishTable td.fish-action2 { width: 37%; }
+
+
+.savebutton {
+  margin-top: 12px;
+  width: 100%;
+  height: 30px;
+  border: none;
+  border-radius: 90px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
 }
 
 /* フッター */

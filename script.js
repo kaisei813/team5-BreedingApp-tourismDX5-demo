@@ -302,9 +302,9 @@ function loadFishTableData(fishData = []) {
   });
 }
 
-document.getElementById('searchButton').addEventListener('click', filterButtons);
+document.getElementById('searchButton').addEventListener('click', filterAreaButtons);
 
-function filterButtons() {
+function filterAreaButtons() {
   /*const nameValue = document.getElementById('searchInput').value.trim(); 入力検索*/
   const tag1Value = document.getElementById('tagFilter1').value;
   const tag2Value = document.getElementById('tagFilter2').value;
@@ -326,6 +326,28 @@ function filterButtons() {
       tag2Value === '' || tag2 === tag2Value;
 
     if (/*matchName && */matchTag1 && matchTag2) {
+      btn.style.display = '';
+    } else {
+      btn.style.display = 'none';
+    }
+  });
+}
+
+document.getElementById('searchButton2').addEventListener('click', filterAnimalButtons);
+
+function filterAnimalButtons() {
+  const tag3Value = document.getElementById('tagFilter3').value;
+
+  const buttons = document.querySelectorAll('#management-kahunomori .sub-button2');
+
+  buttons.forEach(btn => {
+    const tag3 = btn.dataset.tags3 || '';
+
+
+    const matchTag3 =
+      tag3Value === '' || tag3 === tag3Value;
+
+    if (matchTag3) {
       btn.style.display = '';
     } else {
       btn.style.display = 'none';
