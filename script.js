@@ -305,27 +305,27 @@ function loadFishTableData(fishData = []) {
 document.getElementById('searchButton').addEventListener('click', filterButtons);
 
 function filterButtons() {
-  const nameValue = document.getElementById('searchInput').value.trim();
+  /*const nameValue = document.getElementById('searchInput').value.trim(); 入力検索*/
   const tag1Value = document.getElementById('tagFilter1').value;
   const tag2Value = document.getElementById('tagFilter2').value;
 
   const buttons = document.querySelectorAll('#management .sub-button');
 
   buttons.forEach(btn => {
-    const name = btn.dataset.name || '';
+    /*const name = btn.dataset.name || ''; */
     const tag1 = btn.dataset.tags1 || '';
     const tag2 = btn.dataset.tags2 || '';
 
-    const matchName =
+    /*const matchName =
       nameValue === '' || name.includes(nameValue);
-
+*/
     const matchTag1 =
       tag1Value === '' || tag1 === tag1Value;
 
     const matchTag2 =
       tag2Value === '' || tag2 === tag2Value;
 
-    if (matchName && matchTag1 && matchTag2) {
+    if (/*matchName && */matchTag1 && matchTag2) {
       btn.style.display = '';
     } else {
       btn.style.display = 'none';
