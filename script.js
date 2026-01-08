@@ -1,11 +1,19 @@
+// --- グローバル変数 ---
 const pages = document.querySelectorAll('.page');
 
-let pointColors = [];
-let abnormalRecords = [];
 const STORAGE_KEY = 'dailyRecords';
-let dailyRecords = {};
-let currentDate = '';
+let dailyRecords = {}; // 構造: { pageId: { date: { data... } } }
+let abnormalRecords = [];
+let feedChart = null; // グラフオブジェクト用
 
+// --- 初期化処理 ---
+window.addEventListener('load', () => {
+  loadFromStorage();
+  // 初期ページ（home）を表示
+  showPage('home', false);
+});
+
+// --- ローカルストレージ操作 ---
 function saveToStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(dailyRecords));
 }
@@ -17,7 +25,7 @@ function loadFromStorage() {
   }
 }
 
-/*ページ切替（履歴＋グラフ対応）*/
+// --- ページ切り替え機能 ---
 function showPage(pageId, push = true) {
   pages.forEach(p => p.classList.remove('active'));
 
@@ -30,76 +38,163 @@ function showPage(pageId, push = true) {
   if (push) {
     history.pushState({ page: pageId }, "", "#" + pageId);
   }
+
+  // 管理日誌ページ（日付入力があるページ）に遷移した場合の初期表示
+  const dateInput = target.querySelector('input[type="date"]');
+  if (dateInput) {
+    // 今日をデフォルトに設定
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.value = today;
+    loadDailyRecord(pageId, today);
+  }
 }
 
-
-/* フッターボタン */
-function goHome() {
-  showPage("home");
-}
-
-function openPhone() {
-  showPage("phone");
-}
-
-function goBack() {
-  history.back();
-}
-
-function goForward() {
-  history.forward();
-}
-
-/* ブラウザ戻る / 進む対応*/
+/* ブラウザ戻る / 進む対応 */
 window.onpopstate = function (event) {
   if (event.state && event.state.page) {
     showPage(event.state.page, false);
   }
 };
 
+// --- ナビゲーション関数 ---
+function goHome() { showPage("home"); }
+function openPhone() { showPage("phone"); }
+function goBack() { history.back(); }
+function goForward() { history.forward(); }
 
-function filterDepartmentButtons() {
-  const keyword = document.getElementById('searchInput').value.toLowerCase();
-  const selectedTag = document.getElementById('tagFilter1').value;
-  const selectedTag2 = document.getElementById('tagFilter2').value;
+// --- 日付変更時の連動処理 ---
+function handleDateChange(inputEl) {
+  const pageId = inputEl.closest('.page').id;
+  const selectedDate = inputEl.value;
+  loadDailyRecord(pageId, selectedDate);
+}
 
-  const buttons = document.querySelectorAll('#departmentButtons .sub-button');
+// --- 保存機能 ---
+function saveDailyRecord() {
+  const activePage = document.querySelector('.page.active');
+  const pageId = activePage.id;
+  const dateInput = activePage.querySelector('input[type="date"]');
+  
+  if (!dateInput || !dateInput.value) {
+    alert('日付を選択してください');
+    return;
+  }
 
-  buttons.forEach(btn => {
-    const name = btn.dataset.name.toLowerCase();
-    const tags = btn.dataset.tags.toLowerCase();
+  const date = dateInput.value;
 
-    const matchName = name.includes(keyword);
-    const matchTag = !selectedTag || tags.includes(selectedTag);
-    const matchTag2 = !selectedTag2 || tags.includes(selectedTag2);
+  // ページごとのデータ保存領域を確保
+  if (!dailyRecords[pageId]) {
+    dailyRecords[pageId] = {};
+  }
 
-    if (matchName && matchTag && matchTag2) {
-      btn.style.display = '';
+  // データの収集
+  dailyRecords[pageId][date] = {
+    staff1: activePage.querySelector('.staff-input:nth-of-type(1)')?.value || '',
+    staff2: activePage.querySelector('.staff-input:nth-of-type(2)')?.value || '',
+    temp: activePage.querySelector('#sheetTemp')?.value || '',
+    humidity: activePage.querySelector('#sheetHumidity')?.value || '',
+    foodTotal: activePage.querySelector('#sheetFood')?.value || '',
+    memo: activePage.querySelector('textarea')?.value || '',
+    fishData: getFishTableData(activePage)
+  };
+
+  saveToStorage();
+  alert(`${date} のデータを保存しました`);
+}
+
+/* テーブルデータの取得 */
+function getFishTableData(activePage) {
+  const rows = activePage.querySelectorAll('table[id^="fishTable"] tbody tr');
+  const data = [];
+
+  rows.forEach(row => {
+    // 各生物/個体ごとの行データを取得
+    data.push({
+      food: row.querySelector('input.text-food')?.value || '',
+      state: row.querySelector('select')?.value || '良好',
+      action: row.querySelector('td:last-child input')?.value || ''
+    });
+  });
+
+  return data;
+}
+
+// --- 読み込み機能 ---
+function loadDailyRecord(pageId, date) {
+  const activePage = document.getElementById(pageId);
+  const record = (dailyRecords[pageId] && dailyRecords[pageId][date]) ? dailyRecords[pageId][date] : null;
+
+  // フォームへの反映（データがない場合は空にする）
+  activePage.querySelector('.staff-input:nth-of-type(1)').value = record?.staff1 || '';
+  activePage.querySelector('.staff-input:nth-of-type(2)').value = record?.staff2 || '';
+  activePage.querySelector('#sheetTemp').value = record?.temp || '';
+  activePage.querySelector('#sheetHumidity').value = record?.humidity || '';
+  activePage.querySelector('#sheetFood').value = record?.foodTotal || '';
+  activePage.querySelector('textarea').value = record?.memo || '';
+
+  // テーブルデータの復元
+  const rows = activePage.querySelectorAll('table[id^="fishTable"] tbody tr');
+  rows.forEach((row, i) => {
+    const inputFood = row.querySelector('input.text-food');
+    const selectState = row.querySelector('select');
+    const inputAction = row.querySelector('td:last-child input');
+
+    if (record && record.fishData && record.fishData[i]) {
+      const d = record.fishData[i];
+      if(inputFood) inputFood.value = d.food || '';
+      if(selectState) selectState.value = d.state || '良好';
+      if(inputAction) inputAction.value = d.action || '';
     } else {
-      btn.style.display = 'none';
+      if(inputFood) inputFood.value = '';
+      if(selectState) selectState.value = '良好';
+      if(inputAction) inputAction.value = '';
     }
   });
 }
 
+// --- 検索フィルター機能 (既存コードの維持) ---
+function filterAreaButtons() {
+  const tag1Value = document.getElementById('tagFilter1').value;
+  const tag2Value = document.getElementById('tagFilter2').value;
+  const buttons = document.querySelectorAll('#management .sub-button');
 
-/*データ追加*/
+  buttons.forEach(btn => {
+    const tag1 = btn.dataset.tags1 || '';
+    const tag2 = btn.dataset.tags2 || '';
+    const matchTag1 = tag1Value === '' || tag1 === tag1Value;
+    const matchTag2 = tag2Value === '' || tag2 === tag2Value;
+
+    btn.style.display = (matchTag1 && matchTag2) ? '' : 'none';
+  });
+}
+
+function filterAnimalButtons() {
+  const tag3Value = document.getElementById('tagFilter3').value;
+  const buttons = document.querySelectorAll('#management-kahunomori .sub-button2');
+
+  buttons.forEach(btn => {
+    const tag3 = btn.dataset.tags3 || '';
+    btn.style.display = (tag3Value === '' || tag3 === tag3Value) ? '' : 'none';
+  });
+}
+
+// 検索ボタンへのイベントリスナー登録
+const searchBtn1 = document.getElementById('searchButton');
+if(searchBtn1) searchBtn1.addEventListener('click', filterAreaButtons);
+
+const searchBtn2 = document.getElementById('searchButton2');
+if(searchBtn2) searchBtn2.addEventListener('click', filterAnimalButtons);
+
+// --- グラフ・異常値関連 (既存コードの整理) ---
 function addFeedData() {
-  
-  if(!feedChart){
-    initFeedChart();
-  }
+  if(!feedChart) return; // グラフ未初期化時は処理しない
+
   const dateInput = document.getElementById('feedDate');
   const valueInput = document.getElementById('feedValue');
-
-  if (!dateInput || !valueInput) {
-    alert('魚類ページを開いてから入力してください');
-    return;
-  }
+  if (!dateInput || !valueInput) return;
 
   const dateValue = dateInput.value;
   const value = parseFloat(valueInput.value);
-
-  console.log('date:', dateValue, 'value:', value);
 
   if (!dateValue || Number.isNaN(value)) {
     alert('日にちとデータを入力してください');
@@ -107,250 +202,19 @@ function addFeedData() {
   }
 
   const isAbnormal = value < 0 || value > 30;
+  valueInput.classList.toggle('input-error', isAbnormal);
 
-  /*異常値チェック*/
-  valueInput.classList.remove('input-error');
-
-  if (value < 0 || value > 30) {
-    valueInput.classList.add('input-error');
-  }
-
-  // 今日の「今の時刻」を自動で付与
-  const now = new Date();
-  const date = new Date(dateValue);
-  date.setHours(now.getHours(), now.getMinutes(), 0);
-
-  const label = date.toLocaleString();
-
+  const label = new Date(dateValue).toLocaleString();
   feedChart.data.labels.push(label);
   feedChart.data.datasets[0].data.push(value);
 
   const dataset = feedChart.data.datasets[0];
-  if (!dataset.pointBackgroundColor) {
-    dataset.pointBackgroundColor = [];
-    dataset.pointBorderColor = [];
-  }
-
-  feedChart.data.datasets[0].pointBackgroundColor.push(isAbnormal ? 'red' : '#4caf50');
-  feedChart.data.datasets[0].pointBorderColor.push(isAbnormal ? 'red' : '#4caf50');
-
+  if (!dataset.pointBackgroundColor) dataset.pointBackgroundColor = [];
+  dataset.pointBackgroundColor.push(isAbnormal ? 'red' : '#4caf50');
+  
   if (isAbnormal) {
-  abnormalRecords.push({
-    index: dataset.data.length-1,
-    label,
-    value
-  });
-  renderAbnormalList();
-}
-
+    abnormalRecords.push({ index: dataset.data.length - 1, label, value });
+    renderAbnormalList();
+  }
   feedChart.update();
-
-  document.getElementById('feedDate').value = '';
-  document.getElementById('feedValue').value = '';
-}
-
-
-function renderAbnormalList() {
-  const container = document.getElementById('abnormalList');
-  container.innerHTML = '';
-
-  abnormalRecords.forEach((record, i) => {
-    const row = document.createElement('div');
-    row.style.marginBottom = '8px';
-
-    row.innerHTML = `
-      <span class="abnormal-text">
-        ⚠ 異常値 ｜ ${record.label} ｜ 訂正：
-      </span>
-      <input type="number" id="fix-${i}" style="width:80px">
-      <button onclick="fixAbnormal(${i})">訂正</button>
-    `;
-
-    container.appendChild(row);
-  });
-}
-
-function fixAbnormal(listIndex) {
-  const record = abnormalRecords[listIndex];
-  const input = document.getElementById(`fix-${listIndex}`);
-  const newValue = parseFloat(input.value);
-
-  if (Number.isNaN(newValue)) {
-    alert('正しい数値を入力してください');
-    return;
-  }
-
-  const dataIndex = record.index; //グラフ用 index
-  const dateLabel = record.label; //labels が "YYYY/MM/DD HH:mm" 形式なら日付だけ取得
-                                  //日誌用　日付(yyyy-mm-dd)
-
-  // グラフの値を上書き(更新)
-  feedChart.data.datasets[0].data[dataIndex] = newValue;
-  // 点の色を正常色に変更
-  feedChart.data.datasets[0].pointBackgroundColor[dataIndex] = '#4caf50';
-  feedChart.data.datasets[0].pointBorderColor[dataIndex] = '#4caf50';
-  feedChart.update();
-
-  //日誌データ更新
-  if(dailyRecords[dateLabel]) {
-    dailyRecords[dateLabel].waterTemp = newValue;
-  }
-
-  saveToStorage();
-
-  // 異常値リストから削除
-  abnormalRecords.splice(listIndex, 1);
-  renderAbnormalList();
-
-  alert('日誌とグラフを修正しました');
-}
-
-function loadDailyRecord(date) {
-  document.getElementById('sheetDate').textContent = `日付：${date}`;
-
-  const record = dailyRecords[date] || {};
-
-  document.getElementById('sheetStaff1').value = record.staff1 || '';
-  document.getElementById('sheetStaff2').value = record.staff2 || '';
-  document.getElementById('sheetTemp').value = record.waterTemp || '';
-  document.getElementById('sheetHumidity').value = record.humidity || '';
-  document.getElementById('sheetFood').value = record.food || '';
-  document.getElementById('sheetMemo').value = record.memo || '';
-
-  loadFishTableData(record.fishData || []);
-}
-
-function get(id) {
-  const el = document.getElementById(id);
-  if (!el) console.error(`❌ IDが見つかりません: ${id}`);
-  return el;
-}
-
-function getFishTableData() {
-  const rows = document.querySelectorAll('#fishTable tbody tr');
-  const data = [];
-
-  rows.forEach(row => {
-    data.push({
-      number: row.querySelector('.fish-number')?.textContent || '',
-      name: row.querySelector('.fish-name')?.textContent || '',
-      food: row.querySelector('.fish-food input')?.value || '',
-      state: row.querySelector('.fish-situation select')?.value || '',
-      action: row.querySelector('.fish-action input')?.value || ''
-    });
-  });
-
-  return data;
-}
-
-function saveDailyRecord() {
-  if (!currentDate) {
-    alert('日付が未選択です');
-    return;
-  }
-
-  console.log('保存日付:', currentDate);
-
-  dailyRecords[currentDate] = {
-    staff1: document.getElementById('sheetStaff1').value,
-    staff2: document.getElementById('sheetStaff2').value,
-
-    waterTemp: document.getElementById('sheetTemp').value,
-    humidity: document.getElementById('sheetHumidity').value,
-    food: document.getElementById('sheetFood').value,
-    
-    memo: document.getElementById('sheetMemo').value,
-
-    fishData: getFishTableData()
-  };
-
-  saveToStorage();           // ★ 保存
-
-  alert('保存しました');
-}
-
-function openDailySheet() {
-  const date = document.getElementById('calendarDate').value;
-  if (!date) {
-    alert('日付を選択してください');
-    return;
-  }
-
-  currentDate = date;
-  showPage('daily-sheet');
-  loadDailyRecord(date);
-}
-
-window.addEventListener('load', () => {
-  loadFromStorage();
-});
-
-function loadFishTableData(fishData = []) {
-  const rows = document.querySelectorAll('#fishTable tbody tr');
-
-  rows.forEach((row, i) => {
-    if (!fishData[i]) return;
-
-    row.querySelector('.fish-food input').value =
-      fishData[i].food || '';
-
-    row.querySelector('.fish-situation select').value =
-      fishData[i].state || '良好';
-
-    row.querySelector('.fish-action input').value =
-      fishData[i].action || '';
-  });
-}
-
-document.getElementById('searchButton').addEventListener('click', filterAreaButtons);
-
-function filterAreaButtons() {
-  /*const nameValue = document.getElementById('searchInput').value.trim(); 入力検索*/
-  const tag1Value = document.getElementById('tagFilter1').value;
-  const tag2Value = document.getElementById('tagFilter2').value;
-
-  const buttons = document.querySelectorAll('#management .sub-button');
-
-  buttons.forEach(btn => {
-    /*const name = btn.dataset.name || ''; */
-    const tag1 = btn.dataset.tags1 || '';
-    const tag2 = btn.dataset.tags2 || '';
-
-    /*const matchName =
-      nameValue === '' || name.includes(nameValue);
-*/
-    const matchTag1 =
-      tag1Value === '' || tag1 === tag1Value;
-
-    const matchTag2 =
-      tag2Value === '' || tag2 === tag2Value;
-
-    if (/*matchName && */matchTag1 && matchTag2) {
-      btn.style.display = '';
-    } else {
-      btn.style.display = 'none';
-    }
-  });
-}
-
-document.getElementById('searchButton2').addEventListener('click', filterAnimalButtons);
-
-function filterAnimalButtons() {
-  const tag3Value = document.getElementById('tagFilter3').value;
-
-  const buttons = document.querySelectorAll('#management-kahunomori .sub-button2');
-
-  buttons.forEach(btn => {
-    const tag3 = btn.dataset.tags3 || '';
-
-
-    const matchTag3 =
-      tag3Value === '' || tag3 === tag3Value;
-
-    if (matchTag3) {
-      btn.style.display = '';
-    } else {
-      btn.style.display = 'none';
-    }
-  });
 }
