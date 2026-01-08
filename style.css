@@ -485,6 +485,128 @@ main {
 #fishTable th.fish-action2,
 #fishTable td.fish-action2 { width: 37%; }
 
+/*ばんない水槽*/
+.sub-menu3 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  gap: 6px;
+}
+
+.search-card3 {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+}
+
+.tag-row3{
+  display: flex;
+  gap: 8px;
+}
+
+.tag-row3 select{
+  flex: 1;
+}
+
+.search-ui3 {
+  margin-bottom: 12px;
+}
+
+.search-ui3 {
+  margin-bottom: 12px;
+}
+
+.search-ui3 label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.search-ui3 input,
+.search-ui3 select {
+  width: 50%;
+  height: 30px;
+  padding: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+.sub-button3 {
+  height: 25px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 5%;
+  cursor: pointer;
+  color: white;
+}
+
+.sub-button3.suisou1 {
+  background-color: #4CAF50;
+}
+
+.sub-button3.suisou2 {
+  background-color: #FF9800;
+}
+
+.sub-button3.suisou3 {
+  background-color: #2196F3;
+}
+
+.sub-button3.suisou4 {
+  background-color: #9C27B0;
+}
+
+.sub-button3.suisou5 {
+  background-color: #b02740;
+}
+
+.sub-button3.suisou6 {
+  background-color: #27b0a7;
+}
+
+.sub-button3.suisou7 {
+  background-color: #92b027;
+}
+
+.sub-button3.suisou8 {
+  background-color: #b0277e;
+}
+
+.sub-button3.suisou9 {
+  background-color: #27b0a7;
+}
+
+.sub-button3.suisou10 {
+  background-color: #92b027;
+}
+
+.sub-button3.suisou11 {
+  background-color: #27b070;
+}
+
+.sub-button3.suisou12 {
+  background-color: #7727b0;
+}
+
+.sub-button3.suisou13 {
+  background-color: #b03727;
+}
+
+.sub-button3.suisou14 {
+  background-color: #2745b0;
+}
+
+.sub-button3:hover {
+  opacity: 0.85;
+}
 
 .savebutton {
   margin-top: 12px;
@@ -497,6 +619,43 @@ main {
   cursor: pointer;
   background-color: #4CAF50;
   color: white;
+}
+
+.comingsoon {
+  width: 100%;
+  max-width: 100%;
+  max-height: 100vh;
+  max-height: 100vh;
+}
+
+.members-card {
+  height: 35vh;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.189);
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.aq-logo {
+  width: 35%;
+  height: 28vh;
+}
+
+.Kosen-logo {
+  width: 35%;
+  height: 28vh;
+}
+
+.contact-card {
+  height: 35vh;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.189);
+  margin-bottom: 20px;
+  align-items: center;
 }
 
 /* フッター */

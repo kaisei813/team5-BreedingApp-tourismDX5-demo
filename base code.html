@@ -27,7 +27,8 @@
                 <button class="menu-button setting" onclick="showPage('other')">設定</button>
             </div>
         </section>
-
+        
+        <!--飼育管理画面-->
         <section class="page" id="management">
             <h2>エリア選択画面</h2>
             <div class="search-card">
@@ -83,7 +84,6 @@
                 <button class="sub-button hizyuru" data-name="ひじゅるーコーナー" data-tags2="ひじゅるーコーナー" onclick="showPage('management-hizyuru')">ひじゅるーコーナー</button>
             </div>
         </section>
-
         <!--カフーの森生物飼育管理ページ-->
         <section class="page" id="management-kahunomori">
             <h2>生物選択画面</h2>
@@ -272,7 +272,7 @@
                 <button class="savebutton" onclick="saveDailyRecord()">保存</button>
             </div>
         </section>
-        <!--ペンギンぐすく生物管理ページ-->
+        <!--ペンギンぐすく生物飼育管理ページ-->
         <section class="page" id="management-pengingusuku">
             <h2>フンボルトペンギン管理日誌</h2>
             <div id="daily-sheet">
@@ -416,13 +416,255 @@
                 <button class="savebutton" onclick="saveDailyRecord()">保存</button>
             </div>
         </section>
+        <!--カフーの森・ペンギンぐすく以外一次待機ページ-->
+        <section class="page" id="management-nibuyazoo">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <section class="page" id="management-gumasankebu">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <section class="page" id="management-cyuraminamo">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <section class="page" id="management-touchpuru">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <section class="page" id="management-yanbarunomori">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <section class="page" id="management-umikazidomu">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <section class="page" id="management-fureai">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <!--ばんない水槽生物飼育管理ページ-->
+        <section class="page" id="management-bannaisuisou">
+            <h2>生物選択画面</h2>
+            <div class="search-card3">
+                <p>生物を選択</p>
+                <!--検索UI-->
+                <div class="search-ui3 tag-row3">
+                    <label>タグ検索:</label>
+                    <select id="tagFilter4">
+                        <option value="">未選択</option>
+                        <option value="第1水槽">第1水槽</option>
+                        <option value="第2水槽">第2水槽</option>
+                        <option value="第3水槽">第3水槽</option>
+                        <option value="第4水槽">第4水槽</option>
+                        <option value="第5水槽">第5水槽</option>
+                        <option value="第6水槽">第6水槽</option>
+                        <option value="第7水槽">第7水槽</option>
+                        <option value="第8水槽">第8水槽</option>
+                        <option value="第9水槽">第9水槽</option>
+                        <option value="第10水槽">第10水槽</option>
+                        <option value="第11水槽">第11水槽</option>
+                        <option value="第12水槽">第12水槽</option>
+                        <option value="第13水槽">第13水槽</option>
+                        <option value="第14水槽">第14水槽</option>
+                    </select>
+                </div>
+                <button id="searchButton3">検索</button>
+            </div>
+            <!-- サブメニュー -->
+            <div class="sub-menu3">
+                <button class="sub-button3 suisou1" data-name="第1水槽" data-tags3="第1水槽" onclick="showPage('management-suisou1')">第1水槽</button>
+                <button class="sub-button3 suisou2" data-name="第2水槽" data-tags3="第2水槽" onclick="showPage('management-suisou2')">第2水槽</button>
+                <button class="sub-button3 suisou3" data-name="第3水槽" data-tags3="第3水槽" onclick="showPage('management-suisou3')">第3水槽</button>
+                <button class="sub-button3 suisou4" data-name="第4水槽" data-tags3="第4水槽" onclick="showPage('management-suisou4')">第4水槽</button>
+                <button class="sub-button3 suisou5" data-name="第5水槽" data-tags3="第5水槽" onclick="showPage('management-suisou5')">第5水槽</button>
+                <button class="sub-button3 suisou6" data-name="第6水槽" data-tags3="第6水槽" onclick="showPage('management-suisou6')">第6水槽</button>
+                <button class="sub-button3 suisou7" data-name="第7水槽" data-tags3="第7水槽" onclick="showPage('management-suisou7')">第7水槽</button>
+                <button class="sub-button3 suisou8" data-name="第8水槽" data-tags3="第8水槽" onclick="showPage('management-suisou8')">第8水槽</button>
+                <button class="sub-button3 suisou9" data-name="第9水槽" data-tags3="第9水槽" onclick="showPage('management-suisou9')">第9水槽</button>
+                <button class="sub-button3 suisou10" data-name="第10水槽" data-tags3="第10水槽" onclick="showPage('management-suisou10')">第10水槽</button>
+                <button class="sub-button3 suisou11" data-name="第11水槽" data-tags3="第11水槽" onclick="showPage('management-suisou11')">第11水槽</button>
+                <button class="sub-button3 suisou12" data-name="第12水槽" data-tags3="第12水槽" onclick="showPage('management-suisou12')">第12水槽</button>
+                <button class="sub-button3 suisou13" data-name="第13水槽" data-tags3="第13水槽" onclick="showPage('management-suisou13')">第13水槽</button>
+                <button class="sub-button3 suisou14" data-name="第14水槽" data-tags3="第14水槽" onclick="showPage('management-suisou14')">第14水槽</button>
+            </div>
+        </section>
+        <section class="page" id="management-suisou1">
+            <h2>第1水槽管理日誌</h2>
+            <div id="daily-sheet">
+                <h3>日誌担当</h3>
+                <div class="sheetDate">
+                    <p>日付選択:<input type="date" onchange="handleDateChange(this)"></p>
+                    <label>
+                        担当➀：<input type ="text" id="sheetStaff1" class="staff-input"><br>
+                        担当➁：<input type ="text" id="sheetStaff2" class="staff-input">
+                    </label>
+                </div>
+                <h3>環境データ</h3>
+                <table id="dailyTable" border="1">
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>数値</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>水温(℃)</td>
+                            <td><input type="number" id="sheetTemp1"></td>
+                        </tr>
+                        <tr>
+                            <td>室温(℃)</td>
+                            <td><input type="number" id="sheetTemp"></td>
+                        </tr>
+                        <tr>
+                            <td>湿度(%)</td>
+                            <td><input type="number" id="sheetHumidity"></td>
+                        </tr>
+                        <tr>
+                            <td>餌総量(kg)</td>
+                            <td><input type="number" id="sheetFood"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h3>飼育記録</h3>
+                <table id="fishTable" border="1">
+                    <thead>
+                        <tr>
+                            <th class="fish-number">No</th>
+                            <th class="fish-name">個体</th>
+                            <th class="fish-food">餌(g)</th>
+                            <th class="fish-situation">状態</th>
+                            <th class="fish-action">行動記録</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="fish-number">01</td>
+                            <td class="fish-name">熱帯魚</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">02</td>
+                            <td class="fish-name">淡水魚</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">03</td>
+                            <td class="fish-name">サメ</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">04</td>
+                            <td class="fish-name">ヒトデ</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">05</td>
+                            <td class="fish-name">海月</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                        <tr>
+                            <td class="fish-number">06</td>
+                            <td class="fish-name">ウミガメ</td>
+                            <td class="fish-food"><input type="text" class="text-food"></td>
+                            <td class="fish-situation">
+                                <select>
+                                    <option>良好</option>
+                                    <option>注意</option>
+                                    <option>異常</option>
+                                    <option>危険</option>
+                                </select>
+                            </td>
+                            <td class="fish-action"><input type="text"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                備考欄：<br>
+                <textarea id="sheetMemo"></textarea>
+                <br>
+
+                <button class="savebutton" onclick="saveDailyRecord()">保存</button>
+            </div>
+        </section>
+        <!--上記以外一次待機ページ-->
+        <section class="page" id="management-cyurasanrihu">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <section class="page" id="management-uchinadaisuisou">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <section class="page" id="management-kurageyonna">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
+        <section class="page" id="management-hizyuru">
+            <img src="images/DMM KARIYUSHI ap app_coming soon.png" alt="作成者" class="comingsoon">
+        </section>
         
-
-
-
-
-
-
+        <!--設定画面-->
+        <section class="page" id="other">
+            <h2>設定画面</h2>
+            <div class="members-card">
+                <img src="images/DMM KARIYUSHI aq-logo.png" alt="作成者" class="aq-logo">
+                <img src="images/NIT Okinawa Kosen-logo.jpg" alt="作成者" class="Kosen-logo">
+                <br>
+                <h5>DMMかりゆし水族館 ✖ 沖縄高専 観光地域共生デザインコース チーム5</h5>
+            </div>
+            <div class="contact-card">
+                <h3>お問い合わせ</h3>
+                <p>ご不明な点がございましたら、以下の連絡先までお問い合わせください。</p>
+                <ul>
+                    <li>電話: <a href="tel:09000000000">0120-000-0000</a></li>
+                    <li>メール: <a href="kaito.2008business@gmail.com">info@gmail.com</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <!--電話帳画面-->
         <section class="page" id="phone">
             <h5>ホーム＞電話帳</h5>
             <ul class="phone-list">

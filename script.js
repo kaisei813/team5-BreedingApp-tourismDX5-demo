@@ -91,6 +91,7 @@ function saveDailyRecord() {
   dailyRecords[pageId][date] = {
     staff1: activePage.querySelector('.staff-input:nth-of-type(1)')?.value || '',
     staff2: activePage.querySelector('.staff-input:nth-of-type(2)')?.value || '',
+    temp1: activePage.querySelector('#sheetTemp1')?.value || '',
     temp: activePage.querySelector('#sheetTemp')?.value || '',
     humidity: activePage.querySelector('#sheetHumidity')?.value || '',
     foodTotal: activePage.querySelector('#sheetFood')?.value || '',
@@ -127,6 +128,7 @@ function loadDailyRecord(pageId, date) {
   // フォームへの反映（データがない場合は空にする）
   activePage.querySelector('.staff-input:nth-of-type(1)').value = record?.staff1 || '';
   activePage.querySelector('.staff-input:nth-of-type(2)').value = record?.staff2 || '';
+  activePage.querySelector('#sheetTemp1').value = record?.temp1 || '';
   activePage.querySelector('#sheetTemp').value = record?.temp || '';
   activePage.querySelector('#sheetHumidity').value = record?.humidity || '';
   activePage.querySelector('#sheetFood').value = record?.foodTotal || '';
@@ -152,7 +154,7 @@ function loadDailyRecord(pageId, date) {
   });
 }
 
-// --- 検索フィルター機能 (既存コードの維持) ---
+// --- 検索フィルター機能 ---
 function filterAreaButtons() {
   const tag1Value = document.getElementById('tagFilter1').value;
   const tag2Value = document.getElementById('tagFilter2').value;
@@ -178,6 +180,16 @@ function filterAnimalButtons() {
   });
 }
 
+function filterAnimal2Buttons() {
+  const tag4Value = document.getElementById('tagFilter4').value;
+  const buttons = document.querySelectorAll('#management-bannaisuisou .sub-button3');
+
+  buttons.forEach(btn => {
+    const tag4 = btn.dataset.tags4 || '';
+    btn.style.display = (tag4Value === '' || tag4 === tag4Value) ? '' : 'none';
+  });
+}
+
 // 検索ボタンへのイベントリスナー登録
 const searchBtn1 = document.getElementById('searchButton');
 if(searchBtn1) searchBtn1.addEventListener('click', filterAreaButtons);
@@ -185,7 +197,10 @@ if(searchBtn1) searchBtn1.addEventListener('click', filterAreaButtons);
 const searchBtn2 = document.getElementById('searchButton2');
 if(searchBtn2) searchBtn2.addEventListener('click', filterAnimalButtons);
 
-// --- グラフ・異常値関連 (既存コードの整理) ---
+const searchBtn3 = document.getElementById('searchButton3');
+if(searchBtn3) searchBtn3.addEventListener('click', filterAnimal2Buttons);
+
+// --- グラフ・異常値関連---
 function addFeedData() {
   if(!feedChart) return; // グラフ未初期化時は処理しない
 
