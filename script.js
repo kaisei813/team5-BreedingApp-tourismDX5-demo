@@ -149,17 +149,18 @@ function loadDailyRecord(pageId, date) {
   const roomTemp = activePage.querySelector('.sheetTemp');
   const humidity = activePage.querySelector('.sheetHumidity');
   const foodTotal = activePage.querySelector('.sheetFood');
-  
+  const animaltable = activePage.querySelector('.fishTable');
   const memo = activePage.querySelector('.sheetMemo');
 
   if (waterTemp) waterTemp.value = record.environment?.waterTemp || '';
   if (roomTemp) roomTemp.value = record.environment?.roomTemp || '';
   if (humidity) humidity.value = record.environment?.humidity || '';
   if (foodTotal) foodTotal.value = record.environment?.foodTotal || '';
+  if (animaltable) animaltable.value = record.environment?.animaltable || '';
   if (memo) memo.value = record.memo || '';
 
   // テーブルデータの復元
-  const rows = activePage.querySelectorAll('.fishTable tr');
+  const rows = animaltable.querySelectorAll('tr');
   rows.forEach((row, i) => {
     if (record.fishData && record.fishData[i]) {
       const d = record.fishData[i];
