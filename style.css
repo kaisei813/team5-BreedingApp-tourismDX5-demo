@@ -637,15 +637,14 @@ main {
   padding: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.189);
   margin-bottom: 20px;
+
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
 .other-h5 {
-  text-align: fixed;
-  top: auto;
-  left: 50%;
-  width: 100%;
-  font-size: auto;
+  text-align: center;
 }
 
 .aq-logo {

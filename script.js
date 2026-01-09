@@ -89,13 +89,17 @@ function saveDailyRecord() {
 
   // データの収集
   dailyRecords[pageId][date] = {
-    staff1: activePage.querySelector('.staff-input:nth-of-type(1)')?.value || '',
-    staff2: activePage.querySelector('.staff-input:nth-of-type(2)')?.value || '',
-    temp1: activePage.querySelector('#sheetTemp1')?.value || '',
-    temp: activePage.querySelector('#sheetTemp')?.value || '',
-    humidity: activePage.querySelector('#sheetHumidity')?.value || '',
-    foodTotal: activePage.querySelector('#sheetFood')?.value || '',
-    memo: activePage.querySelector('textarea')?.value || '',
+    staff: {
+      staff1: activePage.querySelector('.staff-input:nth-of-type(1)')?.value ?? null,
+      staff2: activePage.querySelector('.staff-input:nth-of-type(2)')?.value ?? null,
+    },
+    environment: {
+      waterTemp: activePage.querySelector('#sheetTemp1')?.value ?? null,
+      roomTemp: activePage.querySelector('#sheetTemp')?.value ?? null,
+      humidity: activePage.querySelector('#sheetHumidity')?.value ?? null,
+      foodTotal: activePage.querySelector('#sheetFood')?.value ?? null,
+    },
+    memo: activePage.querySelector('textarea')?.value ?? null,
     fishData: getFishTableData(activePage)
   };
 
@@ -120,19 +124,30 @@ function getFishTableData(activePage) {
   return data;
 }
 
+function clearDailySheet(activePage) {
+  activePage.querySelectorAll('input, textarea, select').forEach(el => {
+    if (el.type === 'select-one') el.selectedIndex = 0;
+    else el.value = '';
+  });
+}
+
 // --- 読み込み機能 ---
 function loadDailyRecord(pageId, date) {
-  const activePage = document.getElementById(pageId);
-  const record = (dailyRecords[pageId] && dailyRecords[pageId][date]) ? dailyRecords[pageId][date] : null;
+  const activePage = document.querySelector(`#${pageId}`);
+  clearDailySheet(activePage);
 
-  // フォームへの反映（データがない場合は空にする）
-  activePage.querySelector('.staff-input:nth-of-type(1)').value = record?.staff1 || '';
-  activePage.querySelector('.staff-input:nth-of-type(2)').value = record?.staff2 || '';
-  activePage.querySelector('#sheetTemp1').value = record?.temp1 || '';
-  activePage.querySelector('#sheetTemp').value = record?.temp || '';
-  activePage.querySelector('#sheetHumidity').value = record?.humidity || '';
-  activePage.querySelector('#sheetFood').value = record?.foodTotal || '';
-  activePage.querySelector('textarea').value = record?.memo || '';
+  const record = dailyRecords[pageId]?.[date];
+  if (!record) return;
+
+  activePage.querySelector('.staff-input:nth-of-type(1)').value = record.staff.staff1 ?? '';
+  activePage.querySelector('.staff-input:nth-of-type(2)').value = record.staff.staff2 ?? '';
+
+  activePage.querySelector('#sheetTemp1')?.value = record.environment.waterTemp ?? '';
+  activePage.querySelector('#sheetTemp')?.value = record.environment.roomTemp ?? '';
+  activePage.querySelector('#sheetHumidity')?.value = record.environment.humidity ?? '';
+  activePage.querySelector('#sheetFood')?.value = record.environment.foodTotal ?? '';
+
+  activePage.querySelector('textarea').value = record.memo ?? '';
 
   // テーブルデータの復元
   const rows = activePage.querySelectorAll('table[id^="fishTable"] tbody tr');
