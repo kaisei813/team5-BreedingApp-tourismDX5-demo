@@ -159,7 +159,7 @@ function loadDailyRecord(pageId, date) {
   if (memo) memo.value = record.memo || '';
 
   // テーブルデータの復元
-  const rows = activePage.querySelectorAll('table[id^="fishTable"] tbody tr');
+  const rows = activePage.querySelectorAll('.fishTable tr');
   rows.forEach((row, i) => {
     if (record.fishData && record.fishData[i]) {
       const d = record.fishData[i];
