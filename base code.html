@@ -5,8 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>飼育管理アプリ</title>
 
-  <!-- CSS読み込み -->
+  <!--CSS読み込み-->
   <link rel="stylesheet" href="style.css">
+
+  <!--アクセス制御(JavaScript)-->
+  <script>
+    const auth = sessionStorage.getItem("auth"); // sessionStorage チェック
+    const params = new URLSearchParams(window.location.search);
+    const from = params.get("from");  // URLパラメータ取得
+
+    if (auth !== "ok" || from !== "https://kaisei813.github.io/Aquarium-BreedingApp-securityhome/") {
+      // 不正アクセス
+      location.href = "https://kaisei813.github.io/Aquarium-BreedingApp-securityhome/"; // または siteA.html
+    }
+  </script>
 </head>
 
 <body>
