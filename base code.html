@@ -14,7 +14,7 @@
     const params = new URLSearchParams(window.location.search);
     const from = params.get("from");  // URLパラメータ取得
 
-    if (auth !== "ok" || from !== "https://kaisei813.github.io/Aquarium-BreedingApp-securityhome/") {
+    if (auth !== "ok" || from !== "securityhome") {
       // 不正アクセス
       location.href = "https://kaisei813.github.io/Aquarium-BreedingApp-securityhome/"; // または siteA.html
     }
