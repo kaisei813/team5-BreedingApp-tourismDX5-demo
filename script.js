@@ -136,10 +136,13 @@ function loadDailyRecord(pageId, date) {
   const activePage = document.getElementById(pageId);
 
   // ① まず必ず初期化
-  activePage.querySelectorAll('input, textarea, select').forEach(el => {
-    if (el.type === 'select-one') el.selectedIndex = 0;
-    else el.value = '';
-  });
+  const sheet = activePage.querySelector('#daily-sheet');
+if (!sheet) return;
+
+sheet.querySelectorAll('input, textarea, select').forEach(el => {
+  if (el.type === 'select-one') el.selectedIndex = 0;
+  else el.value = '';
+});
 
   const record = dailyRecords[pageId]?.[date];
   if (!record) return;
@@ -149,12 +152,12 @@ function loadDailyRecord(pageId, date) {
   activePage.querySelector('.staff-input:nth-of-type(2)').value = record.staff?.staff2 ?? '';
   activePage.querySelector('#sheetTemp1')?.value = record.environment?.waterTemp ?? '';
   activePage.querySelector('#sheetTemp')?.value = record.environment?.roomTemp ?? '';
-  activePage.querySelector('#sheetHumidity')?.value = record.environment?.humidity ?? '';
   activePage.querySelector('#sheetFood')?.value = record.environment?.foodTotal ?? '';
   activePage.querySelector('#sheetMemo')?.value = record.memo ?? '';
 
   // テーブルデータの復元
-  const rows = activePage.querySelectorAll('table[id^="fishTable"] tbody tr');
+  const rows = sheet.querySelectorAll('table[id^="fishTable"] tbody tr');
+
   rows.forEach((row, i) => {
     const inputFood = row.querySelector('input.text-food');
     const selectState = row.querySelector('select');
@@ -162,9 +165,9 @@ function loadDailyRecord(pageId, date) {
 
     if (record && record.fishData && record.fishData[i]) {
       const d = record.fishData[i];
-      if(inputFood) inputFood.value = d.food || '';
-      if(selectState) selectState.value = d.state || '良好';
-      if(inputAction) inputAction.value = d.action || '';
+      if(inputFood) inputFood.value = d.food ?? '';
+      if(selectState) selectState.value = d.state ?? '良好';
+      if(inputAction) inputAction.value = d.action ?? '';
     } else {
       if(inputFood) inputFood.value = '';
       if(selectState) selectState.value = '良好';
