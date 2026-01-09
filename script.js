@@ -112,7 +112,7 @@ function saveDailyRecord() {
 
 /* テーブルデータの取得 */
 function getFishTableData(activePage) {
-  const rows = activePage.querySelectorAll('table[id^="fishTable"] tbody tr');
+  const rows = activePage.querySelectorAll('.fishTable tr');
   const data = [];
 
   rows.forEach(row => {
@@ -141,16 +141,16 @@ function loadDailyRecord(pageId, date) {
   if (!record) return; // 記録がない場合はリセット状態で終了
 
   // ② activePage 内の要素にデータを流し込む
-  const staff1 = activePage.querySelector('.staff-input:nth-of-type(1)');
-  const staff2 = activePage.querySelector('.staff-input:nth-of-type(2)');
-  if (staff1) staff1.value = record.staff?.staff1 || '';
-  if (staff2) staff2.value = record.staff?.staff2 || '';
+  const staffInputs = activePage.querySelectorAll('.staff-input');
+  if (staffInputs[0]) staffInputs[0].value = record.staff?.staff1 || '';
+  if (staffInputs[1]) staffInputs[1].value = record.staff?.staff2 || '';
 
   const waterTemp = activePage.querySelector('.sheetTemp1');
   const roomTemp = activePage.querySelector('.sheetTemp');
   const humidity = activePage.querySelector('.sheetHumidity');
   const foodTotal = activePage.querySelector('.sheetFood');
-  const memo = activePage.querySelector('textarea');
+  
+  const memo = activePage.querySelector('.sheetMemo');
 
   if (waterTemp) waterTemp.value = record.environment?.waterTemp || '';
   if (roomTemp) roomTemp.value = record.environment?.roomTemp || '';
