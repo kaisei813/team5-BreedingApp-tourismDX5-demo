@@ -2,14 +2,14 @@
 const pages = document.querySelectorAll('.page');
 
 const STORAGE_KEY = 'dailyRecords';
-let dailyRecords = {}; // 構造: { pageId: { date: { data... } } }
+let dailyRecords = {}; 
 let abnormalRecords = [];
-let feedChart = null; // グラフオブジェクト用
+let feedChart = null; 
 
 // --- 初期化処理 ---
 window.addEventListener('load', () => {
   loadFromStorage();
-  // 初期ページ（home）を表示
+  // 初期ページを表示
   showPage('home', false);
 });
 
@@ -27,11 +27,10 @@ function loadFromStorage() {
 
 // --- ページ切り替え機能 ---
 function showPage(pageId, push = true) {
-  pages.forEach(p => p.classList.remove('active'));
-
   const target = document.getElementById(pageId);
   if (!target) return;
 
+  pages.forEach(p => p.classList.remove('active'));
   target.classList.add('active');
 
   // 履歴に追加
@@ -42,10 +41,12 @@ function showPage(pageId, push = true) {
   // 管理日誌ページ（日付入力があるページ）に遷移した場合の初期表示
   const dateInput = target.querySelector('input[type="date"]');
   if (dateInput) {
-    // 今日をデフォルトに設定
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.value = today;
-    loadDailyRecord(pageId, today);
+    // 今日をデフォルトに設定（未入力の場合のみ）
+    if (!dateInput.value) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.value = today;
+    }
+    loadDailyRecord(pageId, dateInput.value);
   }
 }
 
@@ -72,6 +73,8 @@ function handleDateChange(inputEl) {
 // --- 保存機能 ---
 function saveDailyRecord() {
   const activePage = document.querySelector('.page.active');
+  if (!activePage) return;
+
   const pageId = activePage.id;
   const dateInput = activePage.querySelector('input[type="date"]');
   
@@ -87,19 +90,19 @@ function saveDailyRecord() {
     dailyRecords[pageId] = {};
   }
 
-  // データの収集
+  // データの収集 
   dailyRecords[pageId][date] = {
     staff: {
-      staff1: activePage.querySelector('.staff-input:nth-of-type(1)')?.value ?? null,
-      staff2: activePage.querySelector('.staff-input:nth-of-type(2)')?.value ?? null,
+      staff1: activePage.querySelector('.staff-input:nth-of-type(1)')?.value || '',
+      staff2: activePage.querySelector('.staff-input:nth-of-type(2)')?.value || '',
     },
     environment: {
-      waterTemp: activePage.querySelector('#sheetTemp1')?.value ?? null,
-      roomTemp: activePage.querySelector('#sheetTemp')?.value ?? null,
-      humidity: activePage.querySelector('#sheetHumidity')?.value ?? null,
-      foodTotal: activePage.querySelector('#sheetFood')?.value ?? null,
+      waterTemp: activePage.querySelector('.sheetTemp1')?.value || null,
+      roomTemp: activePage.querySelector('.sheetTemp')?.value || null,
+      humidity: activePage.querySelector('.sheetHumidity')?.value || null,
+      foodTotal: activePage.querySelector('.sheetFood')?.value || null,
     },
-    memo: activePage.querySelector('textarea')?.value ?? null,
+    memo: activePage.querySelector('textarea')?.value || '',
     fishData: getFishTableData(activePage)
   };
 
@@ -113,7 +116,6 @@ function getFishTableData(activePage) {
   const data = [];
 
   rows.forEach(row => {
-    // 各生物/個体ごとの行データを取得
     data.push({
       food: row.querySelector('input.text-food')?.value || '',
       state: row.querySelector('select')?.value || '良好',
@@ -124,54 +126,50 @@ function getFishTableData(activePage) {
   return data;
 }
 
-function clearDailySheet(activePage) {
-  activePage.querySelectorAll('input, textarea, select').forEach(el => {
-    if (el.type === 'select-one') el.selectedIndex = 0;
-    else el.value = '';
-  });
-}
-
 // --- 読み込み機能 ---
 function loadDailyRecord(pageId, date) {
   const activePage = document.getElementById(pageId);
+  if (!activePage) return;
 
-  // ① まず必ず初期化
-  const sheet = activePage.querySelector('#daily-sheet');
-if (!sheet) return;
-
-sheet.querySelectorAll('input, textarea, select').forEach(el => {
-  if (el.type === 'select-one') el.selectedIndex = 0;
-  else el.value = '';
-});
+  // ① 現在の入力項目をリセット
+  activePage.querySelectorAll('input:not([type="date"]), textarea, select').forEach(el => {
+    if (el.type === 'select-one') el.selectedIndex = 0;
+    else el.value = '';
+  });
 
   const record = dailyRecords[pageId]?.[date];
-  if (!record) return;
+  if (!record) return; // 記録がない場合はリセット状態で終了
 
-  // ② activePage 内だけを操作する
-  activePage.querySelector('.staff-input:nth-of-type(1)').value = record.staff?.staff1 ?? '';
-  activePage.querySelector('.staff-input:nth-of-type(2)').value = record.staff?.staff2 ?? '';
-  activePage.querySelector('#sheetTemp1')?.value = record.environment?.waterTemp ?? '';
-  activePage.querySelector('#sheetTemp')?.value = record.environment?.roomTemp ?? '';
-  activePage.querySelector('#sheetFood')?.value = record.environment?.foodTotal ?? '';
-  activePage.querySelector('#sheetMemo')?.value = record.memo ?? '';
+  // ② activePage 内の要素にデータを流し込む
+  const staff1 = activePage.querySelector('.staff-input:nth-of-type(1)');
+  const staff2 = activePage.querySelector('.staff-input:nth-of-type(2)');
+  if (staff1) staff1.value = record.staff?.staff1 || '';
+  if (staff2) staff2.value = record.staff?.staff2 || '';
+
+  const waterTemp = activePage.querySelector('.sheetTemp1');
+  const roomTemp = activePage.querySelector('.sheetTemp');
+  const humidity = activePage.querySelector('.sheetHumidity');
+  const foodTotal = activePage.querySelector('.sheetFood');
+  const memo = activePage.querySelector('textarea');
+
+  if (waterTemp) waterTemp.value = record.environment?.waterTemp || '';
+  if (roomTemp) roomTemp.value = record.environment?.roomTemp || '';
+  if (humidity) humidity.value = record.environment?.humidity || '';
+  if (foodTotal) foodTotal.value = record.environment?.foodTotal || '';
+  if (memo) memo.value = record.memo || '';
 
   // テーブルデータの復元
-  const rows = sheet.querySelectorAll('table[id^="fishTable"] tbody tr');
-
+  const rows = activePage.querySelectorAll('table[id^="fishTable"] tbody tr');
   rows.forEach((row, i) => {
-    const inputFood = row.querySelector('input.text-food');
-    const selectState = row.querySelector('select');
-    const inputAction = row.querySelector('td:last-child input');
-
-    if (record && record.fishData && record.fishData[i]) {
+    if (record.fishData && record.fishData[i]) {
       const d = record.fishData[i];
-      if(inputFood) inputFood.value = d.food ?? '';
-      if(selectState) selectState.value = d.state ?? '良好';
-      if(inputAction) inputAction.value = d.action ?? '';
-    } else {
-      if(inputFood) inputFood.value = '';
-      if(selectState) selectState.value = '良好';
-      if(inputAction) inputAction.value = '';
+      const inputFood = row.querySelector('input.text-food');
+      const selectState = row.querySelector('select');
+      const inputAction = row.querySelector('td:last-child input');
+
+      if(inputFood) inputFood.value = d.food || '';
+      if(selectState) selectState.value = d.state || '良好';
+      if(inputAction) inputAction.value = d.action || '';
     }
   });
 }
@@ -187,7 +185,6 @@ function filterAreaButtons() {
     const tag2 = btn.dataset.tags2 || '';
     const matchTag1 = tag1Value === '' || tag1 === tag1Value;
     const matchTag2 = tag2Value === '' || tag2 === tag2Value;
-
     btn.style.display = (matchTag1 && matchTag2) ? '' : 'none';
   });
 }
@@ -207,24 +204,20 @@ function filterAnimal2Buttons() {
   const buttons = document.querySelectorAll('#management-bannaisuisou .sub-button3');
 
   buttons.forEach(btn => {
-    const tag4 = btn.dataset.tags4 || '';
+    // data-tags3に「第1水槽」などが入っているため、tags3を参照
+    const tag4 = btn.dataset.tags3 || '';
     btn.style.display = (tag4Value === '' || tag4 === tag4Value) ? '' : 'none';
   });
 }
 
-// 検索ボタンへのイベントリスナー登録
-const searchBtn1 = document.getElementById('searchButton');
-if(searchBtn1) searchBtn1.addEventListener('click', filterAreaButtons);
+// 検索ボタン
+document.getElementById('searchButton')?.addEventListener('click', filterAreaButtons);
+document.getElementById('searchButton2')?.addEventListener('click', filterAnimalButtons);
+document.getElementById('searchButton3')?.addEventListener('click', filterAnimal2Buttons);
 
-const searchBtn2 = document.getElementById('searchButton2');
-if(searchBtn2) searchBtn2.addEventListener('click', filterAnimalButtons);
-
-const searchBtn3 = document.getElementById('searchButton3');
-if(searchBtn3) searchBtn3.addEventListener('click', filterAnimal2Buttons);
-
-// --- グラフ・異常値関連---
+// --- グラフ・異常値関連 ---
 function addFeedData() {
-  if(!feedChart) return; // グラフ未初期化時は処理しない
+  if(!feedChart) return; 
 
   const dateInput = document.getElementById('feedDate');
   const valueInput = document.getElementById('feedValue');
@@ -251,7 +244,7 @@ function addFeedData() {
   
   if (isAbnormal) {
     abnormalRecords.push({ index: dataset.data.length - 1, label, value });
-    renderAbnormalList();
+    // renderAbnormalList は元のコードに定義がないため、必要に応じて追加してください
   }
   feedChart.update();
 }
