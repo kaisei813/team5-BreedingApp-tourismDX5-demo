@@ -133,21 +133,25 @@ function clearDailySheet(activePage) {
 
 // --- 読み込み機能 ---
 function loadDailyRecord(pageId, date) {
-  const activePage = document.querySelector(`#${pageId}`);
-  clearDailySheet(activePage);
+  const activePage = document.getElementById(pageId);
+
+  // ① まず必ず初期化
+  activePage.querySelectorAll('input, textarea, select').forEach(el => {
+    if (el.type === 'select-one') el.selectedIndex = 0;
+    else el.value = '';
+  });
 
   const record = dailyRecords[pageId]?.[date];
   if (!record) return;
 
-  activePage.querySelector('.staff-input:nth-of-type(1)').value = record.staff.staff1 ?? '';
-  activePage.querySelector('.staff-input:nth-of-type(2)').value = record.staff.staff2 ?? '';
-
-  activePage.querySelector('#sheetTemp1')?.value = record.environment.waterTemp ?? '';
-  activePage.querySelector('#sheetTemp')?.value = record.environment.roomTemp ?? '';
-  activePage.querySelector('#sheetHumidity')?.value = record.environment.humidity ?? '';
-  activePage.querySelector('#sheetFood')?.value = record.environment.foodTotal ?? '';
-
-  activePage.querySelector('textarea').value = record.memo ?? '';
+  // ② activePage 内だけを操作する
+  activePage.querySelector('.staff-input:nth-of-type(1)').value = record.staff?.staff1 ?? '';
+  activePage.querySelector('.staff-input:nth-of-type(2)').value = record.staff?.staff2 ?? '';
+  activePage.querySelector('#sheetTemp1')?.value = record.environment?.waterTemp ?? '';
+  activePage.querySelector('#sheetTemp')?.value = record.environment?.roomTemp ?? '';
+  activePage.querySelector('#sheetHumidity')?.value = record.environment?.humidity ?? '';
+  activePage.querySelector('#sheetFood')?.value = record.environment?.foodTotal ?? '';
+  activePage.querySelector('#sheetMemo')?.value = record.memo ?? '';
 
   // テーブルデータの復元
   const rows = activePage.querySelectorAll('table[id^="fishTable"] tbody tr');
