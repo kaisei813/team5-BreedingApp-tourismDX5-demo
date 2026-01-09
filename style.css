@@ -640,6 +640,14 @@ main {
   align-items: center;
 }
 
+.other-h5 {
+  text-align: fixed;
+  top: auto;
+  left: 50%;
+  width: 100%;
+  font-size: auto;
+}
+
 .aq-logo {
   width: 35%;
   height: 28vh;
