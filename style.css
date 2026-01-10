@@ -635,9 +635,9 @@ main {
   background: #ffffff;
   border-radius: 16px;
   padding: 20px;
-  padding-bottom: 0;
+  padding-bottom: 40px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.189);
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 
   display: flex;
   flex-direction: column;
