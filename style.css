@@ -641,7 +641,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 70px;
+  gap: 15px;
 }
 
 .logos-container {
@@ -655,6 +655,7 @@ main {
 
 .other-h5 {
   text-align: center;
+  gap: 40px;
   margin: 0;
 }
 
