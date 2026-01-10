@@ -663,7 +663,7 @@ main {
   width: auto;
   height: auto;
   max-width: 45%;
-  max-height: 20vh;
+  max-height: 30vh;
   object-fit: contain;
 }
 
