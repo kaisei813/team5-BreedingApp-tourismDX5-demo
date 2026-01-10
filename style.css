@@ -651,7 +651,7 @@ main {
   align-items: center; /* 上下中央揃え */
   gap: 20px; /* 画像間のスペース */
   width: 100%; /* コンテナの幅を広げる */
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .other-h5 {
