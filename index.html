@@ -676,10 +676,18 @@
             </div>
             <div class="contact-card">
                 <h3>お問い合わせ</h3>
-                <p>ご不明な点がございましたら、以下の連絡先までお問い合わせください。</p>
+                <p>ご不明な点がございましたら、以下のフォームに回答後送信ボタンを押してください。<br>後日内容を確認し、メール又は電話にて担当者が対応いたします。</p>
                 <ul>
                     <li>電話: <a href="tel:09000000000">0120-000-0000</a></li>
-                    <li>メール: <a href="kaito.2008business@gmail.com">info@gmail.com</a></li>
+                    <li>メール: <a href="mailto:info@example.com">info@example.com</a></li>
+                    <form id="mailForm">
+                        <input type="hidden" name="to" value="info@example.com">
+                        <label>CC</label>
+                        <input type="email" name="cc">
+                        <label>本文</label>
+                        <textarea name="message"></textarea>
+                        <button type="submit">送信</button>
+                    </form>
                 </ul>
             </div>
         </section>
