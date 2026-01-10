@@ -642,6 +642,11 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* カード自体の幅からはみ出さないようにする設定 */
+  width: 100%;
+  box-sizing: border-box; 
+  overflow: hidden;
 }
 
 .logos-container {
@@ -657,9 +662,6 @@ main {
   text-align: center;
   margin-top: 30px;
   margin-bottom: 30px;
-
-  font-weight: bold;
-  line-height: 1.5;
 }
 
 .aq-logo,
