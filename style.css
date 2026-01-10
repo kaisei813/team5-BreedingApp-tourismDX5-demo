@@ -635,7 +635,7 @@ main {
   background: #ffffff;
   border-radius: 16px;
   padding: 20px;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.189);
   margin-bottom: 20px;
 
@@ -660,8 +660,8 @@ main {
 
 .other-h5 {
   text-align: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .aq-logo,
