@@ -680,11 +680,12 @@ main {
   padding: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.189);
   margin-bottom: 20px;
-  align-items: center;
 
   width: 100%;
   box-sizing: border-box; 
   overflow: hidden;
+
+  display: block;
 }
 
 .mailForm th,
@@ -706,13 +707,13 @@ main {
 
 .mailForm td.to1 { width: 100%; }
 .mailForm td.cc1 { width: 100%; }
-.mailForm td.subject1 { width: 70%; }
-.mailForm td.priority1 { width: 30%; }
+.mailForm td.subject1 { width: 65%; }
+.mailForm td.priority1 { width: 35%; }
 .mailForm td.message1 { width: 100%; }
 .mailForm td.submit-btn1 { width: 100%; }
 
 .mailForm input,
-.mailForm select
+.mailForm select, 
 .mailForm textarea {
   width: 95%;
   margin: auto;
