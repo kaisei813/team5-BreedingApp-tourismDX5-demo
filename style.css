@@ -685,11 +685,9 @@ main {
   box-sizing: border-box; 
   overflow: hidden;
 
-  display: block;
+  display: block !important;
 }
 
-.mailForm th,
-.mailForm td,
 .mailForm th,
 .mailForm td {
   border: 1px solid #ccc;
@@ -699,10 +697,15 @@ main {
 }
 
 .mailForm {
-  width: 100%;
-  max-width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   table-layout: fixed; 
   border-collapse: collapse;
+}
+
+.mailForm td {
+  padding: 10px;
+  background: #fff;
 }
 
 .mailForm td.to1 { width: 100%; }
