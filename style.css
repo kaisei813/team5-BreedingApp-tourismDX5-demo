@@ -687,6 +687,70 @@ main {
   overflow: hidden;
 }
 
+.mailForm {
+  border-collapse: collapse;
+}
+
+.mailForm th,
+.mailForm td,
+.mailForm th,
+.mailForm td {
+  border: 1px solid #ccc;
+  padding: 6px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.mailForm {
+  width: 100%;
+  max-width: 100%;
+  table-layout: fixed; 
+}
+
+.mailForm td.to1 { width: 100%; }
+.mailForm td.cc1 { width: 100%; }
+.mailForm td.subject1 { width: 70%; }
+.mailForm td.priority1 { width: 30%; }
+.mailForm td.message1 { width: 100%; }
+.mailForm td.submit-btn1 { width: 100%; }
+
+.mailForm input,
+.mailForm select {
+  width: 100%;
+  box-sizing: border-box; /* ★ 枠ずれ防止 */
+}
+
+.mailForm input,
+.mailForm select {
+  text-align: center;
+  padding: 3px;
+  font-size: 13px;
+}
+
+.cc {
+  width: 90%;
+}
+.subject {
+  width: 65%;
+}
+.priority {
+  width: 25%;
+}
+.message {
+  width: 100%;
+}
+
+.submit-btn {
+  width: 90%;
+  padding: 6px;
+  font-size: 14px;
+  background-color: #4cafaa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 /* フッター */
 footer {
   display: flex;

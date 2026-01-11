@@ -683,19 +683,19 @@
                     <form id="mailForm">
                         <table>
                             <tr>
-                                <td><input type="hidden" name="to" value="info@example.com"></td>
+                                <td class="to1"><input type="hidden" class="to" name="to" value="info@example.com"></td>
                             </tr>
                             <tr>
-                                <td colspan="2"><label>CC：</label>
-                                    <input type="email" name="cc">
+                                <td colspan="2" class="cc1"><label>CC：</label>
+                                    <input type="email" class="cc" name="cc">
                                 </td>
                             </tr>
                             <tr>
-                                <td><label>件名：</label>
-                                    <input type="text" name="subject">
+                                <td class="subject1"><label>件名：</label>
+                                    <input type="text" class="subject" name="subject">
                                 </td>
-                                <td><label>重要度：</label>
-                                    <select name="priority">
+                                <td class="priority1"><label>重要度：</label>
+                                    <select class="priority" name="priority">
                                         <option value="none">未選択</option>
                                         <option value="low">低</option>
                                         <option value="medium">中</option>
@@ -704,11 +704,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><label>本文：</label></td>
-                                <td><textarea name="message"></textarea></td>
+                                <td class="message1"><label>本文：</label></td>
+                                <td><textarea class="message" name="message"></textarea></td>
                             </tr>
                             <tr>
-                                <td colspan="2"><button type="submit">送信</button></td>
+                                <td colspan="2" class="submit-btn1">
+                                    <button type="submit" class="submit-btn">送信</button>
+                                </td>
                             </tr>
                         </table>
                     </form>
