@@ -675,87 +675,46 @@ main {
 
 .contact-card {
   height: auto;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.189);
-  margin-bottom: 20px;
-
   width: 100%;
-  box-sizing: border-box; 
-  overflow: hidden;
-
-  display: block !important;
-}
-
-.mailForm th,
-.mailForm td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  overflow: hidden;
-}
-
-.mailForm {
-  width: 100% !important;
-  max-width: 100% !important;
-  table-layout: fixed; 
   border-collapse: collapse;
-  display: block;
-  box-sizing: border-box; /* ★ 枠ずれ防止 */
+  table-layout: fixed;
+  margin-top: 10px;
 }
 
-.mailForm td {
-  padding: 10px;
-  background: #fff;
+.mailform th,
+.mailform td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  vertical-align: middle;
 }
 
-.mailForm td.to1 { width: 100%; }
-.mailForm td.cc1 { width: 100%; }
-.mailForm td.subject1 { width: 65%; }
-.mailForm td.priority1 { width: 35%; }
-.mailForm td.message1 { width: 100%; }
-.mailForm td.submit-btn1 { width: 100%; }
-
-.mailForm input,
-.mailForm select, 
-.mailForm textarea {
-  width: 95%;
-  margin: auto;
-  display: block;
-  box-sizing: border-box; /* ★ 枠ずれ防止 */
-}
-
-.mailForm input,
-.mailForm select,
-.mailForm textarea {
-  text-align: center;
-  padding: 3px;
-  font-size: 13px;
-}
-
-.cc {
-  width: 90%;
-}
-.subject {
-  width: 65%;
-}
-.priority {
-  width: 25%;
-}
-.message {
-  width: 100%;
-}
-
-.submit-btn {
-  width: 90%;
-  padding: 6px;
+.mailform th {
+  width: 80px;
+  background-color: #f9f9f9;
+  text-align: right;     /* 文字を右寄せにして「：」を入力欄に近づける */
   font-size: 14px;
-  background-color: #4cafaa;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+}
+
+.mailform td input,
+.mailform td select,
+.mailform td textarea {
+  width: 100%;
+  box-sizing: border-box; /* 枠線を含めて幅100%にする*/
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  display: block;
+}
+
+.mailform td textarea {
+  height: 100px;
+  resize: vertical;/* 縦方向にのみサイズ変更可能にする */
+}
+
+.submit-btn1 {
+  text-align: center;
+  border: none !important; /* ボタンの周りだけ枠線を消す */
+  padding-top: 15px;
 }
 
 /* フッター */
