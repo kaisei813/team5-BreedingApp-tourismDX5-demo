@@ -679,14 +679,38 @@
                 <p>ご不明な点がございましたら、以下のフォームに回答後送信ボタンを押してください。<br>後日内容を確認し、メール又は電話にて担当者が対応いたします。</p>
                 <ul>
                     <li>電話: <a href="tel:09000000000">0120-000-0000</a></li>
-                    <li>メール: <a href="mailto:info@example.com">info@example.com</a></li>
+                    <li>フォーム宛先: <a href="mailto:info@example.com">info@example.com</a></li>
                     <form id="mailForm">
-                        <input type="hidden" name="to" value="info@example.com">
-                        <label>CC</label>
-                        <input type="email" name="cc">
-                        <label>本文</label>
-                        <textarea name="message"></textarea>
-                        <button type="submit">送信</button>
+                        <table>
+                            <tr>
+                                <td><input type="hidden" name="to" value="info@example.com"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><label>CC：</label>
+                                    <input type="email" name="cc">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>件名：</label>
+                                    <input type="text" name="subject">
+                                </td>
+                                <td><label>重要度：</label>
+                                    <select name="priority">
+                                        <option value="none">未選択</option>
+                                        <option value="low">低</option>
+                                        <option value="medium">中</option>
+                                        <option value="high">高</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label>本文：</label></td>
+                                <td><textarea name="message"></textarea></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><button type="submit">送信</button></td>
+                            </tr>
+                        </table>
                     </form>
                 </ul>
             </div>
