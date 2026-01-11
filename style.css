@@ -729,10 +729,6 @@ main {
   resize: vertical;/* 縦方向にのみサイズ変更可能にする */
 }
 
-.cc {
-  width: 80%;
-}
-
 .submit-btn1 {
   text-align: center;
   border: none !important; /* ボタンの周りだけ枠線を消す */
