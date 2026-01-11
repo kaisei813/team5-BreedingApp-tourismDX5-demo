@@ -691,7 +691,7 @@ main {
 .mailForm th,
 .mailForm td {
   border: 1px solid #ccc;
-  padding: 6px;
+  padding: 10px;
   text-align: center;
   overflow: hidden;
 }
@@ -701,6 +701,8 @@ main {
   max-width: 100% !important;
   table-layout: fixed; 
   border-collapse: collapse;
+  display: block;
+  box-sizing: border-box; /* ★ 枠ずれ防止 */
 }
 
 .mailForm td {
