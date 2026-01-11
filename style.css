@@ -724,8 +724,13 @@ main {
 }
 
 .mailform td textarea {
+  width: 100%;
   height: 100px;
   resize: vertical;/* 縦方向にのみサイズ変更可能にする */
+}
+
+.cc {
+  width: 100%;
 }
 
 .submit-btn1 {
