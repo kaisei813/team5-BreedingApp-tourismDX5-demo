@@ -687,10 +687,6 @@ main {
   overflow: hidden;
 }
 
-.mailForm {
-  border-collapse: collapse;
-}
-
 .mailForm th,
 .mailForm td,
 .mailForm th,
@@ -705,6 +701,7 @@ main {
   width: 100%;
   max-width: 100%;
   table-layout: fixed; 
+  border-collapse: collapse;
 }
 
 .mailForm td.to1 { width: 100%; }
@@ -715,13 +712,17 @@ main {
 .mailForm td.submit-btn1 { width: 100%; }
 
 .mailForm input,
-.mailForm select {
-  width: 100%;
+.mailForm select
+.mailForm textarea {
+  width: 95%;
+  margin: auto;
+  display: block;
   box-sizing: border-box; /* ★ 枠ずれ防止 */
 }
 
 .mailForm input,
-.mailForm select {
+.mailForm select,
+.mailForm textarea {
   text-align: center;
   padding: 3px;
   font-size: 13px;
