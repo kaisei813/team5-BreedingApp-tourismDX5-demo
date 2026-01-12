@@ -630,6 +630,16 @@ main {
     object-fit: cover;
 }
 
+.manual-image {
+  display: block;
+  width: 80%;
+  max-width: 100%;
+  height: auto;
+  margin: 0px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
 .members-card {
   height: auto;
   background: #ffffff;
