@@ -103,6 +103,7 @@ function saveDailyRecord() {
       foodTotal: activePage.querySelector('.sheetFood')?.value || null,
     },
     memo: activePage.querySelector('textarea')?.value || '',
+    manegmentCheck: activePage.querySelector('.manegment-check')?.checked || false,
     fishData: getFishTableData(activePage)
   };
 
@@ -151,6 +152,7 @@ function loadDailyRecord(pageId, date) {
   const foodTotal = activePage.querySelector('.sheetFood');
   const animaltable = activePage.querySelector('.fishTable');
   const memo = activePage.querySelector('.sheetMemo');
+  const manegmentCheck = activePage.querySelector('.manegment-check');
 
   if (waterTemp) waterTemp.value = record.environment?.waterTemp || '';
   if (roomTemp) roomTemp.value = record.environment?.roomTemp || '';
@@ -158,6 +160,7 @@ function loadDailyRecord(pageId, date) {
   if (foodTotal) foodTotal.value = record.environment?.foodTotal || '';
   if (animaltable) animaltable.value = record.environment?.animaltable || '';
   if (memo) memo.value = record.memo || '';
+  if (manegmentCheck) manegmentCheck.checked = record.manegmentCheck || false;
 
   // テーブルデータの復元
   const rows = animaltable.querySelectorAll('tr');
