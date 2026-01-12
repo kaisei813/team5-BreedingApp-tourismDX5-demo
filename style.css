@@ -630,6 +630,12 @@ main {
     object-fit: cover;
 }
 
+.manual-image {
+  position: fixed;
+  width: 60%;
+  height: auto;
+}
+
 .members-card {
   height: auto;
   background: #ffffff;
