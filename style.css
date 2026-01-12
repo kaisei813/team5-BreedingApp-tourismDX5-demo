@@ -631,7 +631,6 @@ main {
 }
 
 .manual-image {
-  position: fixed;
   width: 60%;
   height: auto;
 }
