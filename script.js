@@ -269,7 +269,7 @@ function saveEnvData(record) {
 }
 
 const limit = LIMITS["シロフクロウ"].temp;
-function drawLineChart(canvasId, animal, key, label, min, max) {
+function drawLineChart(canvasId, animal, key, label, limitmin, limitmax) {
   const raw = JSON.parse(localStorage.getItem("envData") || "[]");
 
   const filtered = raw
@@ -284,8 +284,8 @@ function drawLineChart(canvasId, animal, key, label, min, max) {
 
   // 点の色を条件で変える
   const pointColors = values.map(v => {
-    if (v > max) return "red";       // 上回り
-    if (v < min) return "blue";      // 下回り
+    if (v > limitmax) return "red";       // 上回り
+    if (v < limitmin) return "blue";      // 下回り
     return "#4caf50";                // 正常
   });
 
@@ -389,23 +389,23 @@ document.addEventListener("DOMContentLoaded", () => {
   initEnvironmentCharts();
 })
 
-function getAbnormalRecords(animal, key, min, max) {
+function getAbnormalRecords(animal, key, limitmin, limitmax) {
   const data = JSON.parse(localStorage.getItem("envData") || "[]");
 
   return data.filter(d =>
     d.animal === animal &&
     typeof d[key] === "number" &&
-    (d[key] < min || d[key] > max)
+    (d[key] < limitmin || d[key] > limitmax)
   );
 }
 
-function renderAbnormalList(animal, key, label, min, max) {
+function renderAbnormalList(animal, key, label, limitmin, limitmax) {
   const list = document.getElementById("abnormalList");
   if (!list) return;
 
   list.innerHTML = "";
 
-  const records = getAbnormalRecords(animal, key, min, max);
+  const records = getAbnormalRecords(animal, key, limitmin, limitmax);
 
   if (records.length === 0) {
     list.innerHTML = "<li>異常はありません</li>";
@@ -416,8 +416,8 @@ function renderAbnormalList(animal, key, label, min, max) {
     const li = document.createElement("li");
 
     let status = "";
-    if (r[key] > max) status = "上限超過";
-    if (r[key] < min) status = "下限未満";
+    if (r[key] > limitmax) status = "上限超過";
+    if (r[key] < limitmin) status = "下限未満";
 
     li.textContent = `${r.date}：${label} ${r[key]}（${status}）`;
     li.style.color = status === "上限超過" ? "red" : "blue";
