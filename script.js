@@ -107,6 +107,15 @@ function saveDailyRecord() {
     fishData: getFishTableData(activePage)
   };
 
+  saveEnvData({
+    area: "カフーの森",
+    animal: "シロフクロウ",
+    date: document.querySelector('input[type="date"]').value,
+    temp: Number(document.querySelector(".sheetTemp")?.value),
+    humidity: Number(document.querySelector(".sheetHumidity")?.value),
+    food: Number(document.querySelector(".sheetFood")?.value)
+  });
+
   saveToStorage();
   alert(`${date} のデータを保存しました`);
 }
@@ -251,4 +260,168 @@ function addFeedData() {
     // renderAbnormalList は元のコードに定義がないため、必要に応じて追加してください
   }
   feedChart.update();
+}
+
+function saveEnvData(record) {
+  const data = JSON.parse(localStorage.getItem("envData") || "[]");
+  data.push(record);
+  localStorage.setItem("envData", JSON.stringify(data));
+}
+
+const limit = LIMITS["シロフクロウ"].temp;
+function drawLineChart(canvasId, animal, key, label, min, max) {
+  const raw = JSON.parse(localStorage.getItem("envData") || "[]");
+
+  const filtered = raw
+    .filter(d => d.animal === animal && d[key] !== undefined)
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .slice(-5); // 今日＋過去4日
+
+  const labels = filtered.map(d => d.date);
+  const values = filtered.map(d => d[key]);
+
+  const avg = calcAverage(values);
+
+  // 点の色を条件で変える
+  const pointColors = values.map(v => {
+    if (v > max) return "red";       // 上回り
+    if (v < min) return "blue";      // 下回り
+    return "#4caf50";                // 正常
+  });
+
+  new Chart(document.getElementById(canvasId), {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+
+        {
+          label,
+          data: values,
+          borderWidth: 2,
+          tension: 0.3,
+          pointBackgroundColor: pointColors,
+          pointRadius: 5
+        },
+
+        // 平均線
+        {
+          label: "平均",
+          data: Array(values.length).fill(avg),
+          borderDash: [6, 6],
+          borderColor: "#999",
+          pointRadius: 0
+        },
+
+        // 下限基準線
+        {
+          label: "下限",
+          data: Array(values.length).fill(min),
+          borderDash: [4, 4],
+          borderColor: "blue",
+          pointRadius: 0
+        },
+
+        // 上限基準線
+        {
+          label: "上限",
+          data: Array(values.length).fill(max),
+          borderDash: [4, 4],
+          borderColor: "red",
+          pointRadius: 0
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          labels: {
+            filter: item => item.text !== label // 実データ以外は非表示でもOK
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        title: { display: true, text: "日付" }
+      },
+      y: {
+        title: { display: true, text: label }
+      }
+    }
+  });
+}
+
+const LIMITS = {
+  "シロフクロウ": {
+    temp: { min: 20, max: 34 },
+    humidity: { min: 40, max: 70 },
+    food: { min: 0.8, max: 1.5 }
+  },
+  "フンボルトペンギン": {
+    temp1: { min: 10, max: 30 },
+    temp: { min: 20, max:35 },
+    humidity: { min: 40, max: 60 },
+    food: { min: 0.8, max:1.0}
+  },
+  "第1水槽": {
+    temp1: { min: 20, max: 40 },
+    temp: { min: 25, max: 30 },
+    humidity: { min: 30, max: 50 },
+    food: { min: 0.2, max: 0.5 }
+  }
+};
+
+function calcAverage(arr) {
+  if (arr.length === 0) return null;
+  return arr.reduce((sum, v) => sum + v, 0) / arr.length;
+}
+
+function initEnvironmentCharts() {
+  drawLineChart("temp1Chart", "シロフクロウ", "temp1", "水温(℃)");
+  drawLineChart("tempChart", "シロフクロウ", "temp", "室温(℃)");
+  drawLineChart("humidityChart", "シロフクロウ", "humidity", "湿度(%)");
+  drawLineChart("foodChart", "シロフクロウ", "food", "給餌量");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initEnvironmentCharts();
+})
+
+function getAbnormalRecords(animal, key, min, max) {
+  const data = JSON.parse(localStorage.getItem("envData") || "[]");
+
+  return data.filter(d =>
+    d.animal === animal &&
+    typeof d[key] === "number" &&
+    (d[key] < min || d[key] > max)
+  );
+}
+
+function renderAbnormalList(animal, key, label, min, max) {
+  const list = document.getElementById("abnormalList");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  const records = getAbnormalRecords(animal, key, min, max);
+
+  if (records.length === 0) {
+    list.innerHTML = "<li>異常はありません</li>";
+    return;
+  }
+
+  records.forEach(r => {
+    const li = document.createElement("li");
+
+    let status = "";
+    if (r[key] > max) status = "上限超過";
+    if (r[key] < min) status = "下限未満";
+
+    li.textContent = `${r.date}：${label} ${r[key]}（${status}）`;
+    li.style.color = status === "上限超過" ? "red" : "blue";
+
+    list.appendChild(li);
+  });
 }

@@ -640,6 +640,62 @@ main {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
+.redline-btn {
+  height: 25px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: left;
+  padding-left: 5%;
+  cursor: pointer;
+  color: white;
+
+  background-color: #27b070;
+}
+
+.department-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+.department-card {
+  width: 0 0 50mm; /*横に6枠収まる用設定 */
+  /*max-width: 300px; /*最大幅を16%で設定*/
+  height: 85mm;  /*高さを固定*/
+  background-color: #ffffff61;
+  border: 1px solid #cccccc65;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.department-container::-webkit-scrollbar {
+    height: 8px; /* スクロールバーの高さ */
+}
+
+.department-container::-webkit-scrollbar-thumb {
+    background-color: #cccccc96; /* スクロールバーの色 */
+    border-radius: 4px;
+}
+
+.department-container::-webkit-scrollbar-track {
+    background-color: #f9f9f9; /* スクロールバーの背景 */
+}
+
 .members-card {
   height: auto;
   background: #ffffff;

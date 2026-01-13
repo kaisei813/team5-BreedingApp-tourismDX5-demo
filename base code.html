@@ -751,7 +751,7 @@
                     <summary>準備中</summary>
                     <p>現在、詳細なマニュアルコンテンツ(アプリ概要)は準備中です。近日中に更新予定ですので、しばらくお待ちください。</p>
             </details>
-            <br>
+            <br><br>
             <details open>
                 <summary>飼育員マニュアル</summary>
                 <details open1>
@@ -821,6 +821,7 @@
                 </details>
                 <br>
             </details>
+            <br><br>
             <details open>
                 <summary>アプリのご使用方法</summary>
                 <details open1>
@@ -899,10 +900,48 @@
             </div>
             -->
         </section>
+        
+        <!--データ管理画面-->
+        <section class="page" id="datacontrol">
+            <h2>データ管理画面</h2>
+            <p>データ管理画面では、飼育データの一括管理や分析を行うことができます。</p>
+            <br>
+            <button class="redline-btn" onclick="showPage('datacontrol-redline')">異常値一覧</button>
+            <section class="page" id="datacontrol-redline">
+                <h3>異常があった日付</h3>
+                <ul id="abnormalList"></ul>
+            </section>
+
+            <h3>シロフクロウ管理データ</h3>
+            <div class="datacontrol-container">
+                <h3>環境データ</h3>
+                <div class="datacontrol-card">
+                    <canvas id="temp1Chart" height="160"></canvas>
+                    <h4>水温推移表</h4>
+                    <p></p>
+                </div>
+                <div class="datacontrol-card">
+                    <canvas id="tempChart" height="160"></canvas>
+                    <h4>室温推移表</h4>
+                    <p></p>
+                </div>
+                <div class="datacontrol-card">
+                    <canvas id="humidityChart" height="160"></canvas>
+                    <h4>湿度推移表</h4>
+                    <p></p>
+                </div>
+                <div class="datacontrol-card">
+                    <canvas id="foodChart" height="160"></canvas>
+                    <h4>餌総量管理表</h4>
+                    <p></p>
+                </div>
+            </div>
+        </section>
 
         <!--設定画面-->
         <section class="page" id="other">
             <h2>設定画面</h2>
+            <p>こちらの詳細な機能は開発中です。ご迷惑をおかけします。</p>
             <div class="members-card">
                 <div class="logos-container">
                     <img src="images/DMM KARIYUSHI aq-logo.png" alt="作成者" class="aq-logo">
