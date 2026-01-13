@@ -379,10 +379,19 @@ function calcAverage(arr) {
 }
 
 function initEnvironmentCharts() {
-  drawLineChart("temp1Chart", "シロフクロウ", "temp1", "水温(℃)");
-  drawLineChart("tempChart", "シロフクロウ", "temp", "室温(℃)");
-  drawLineChart("humidityChart", "シロフクロウ", "humidity", "湿度(%)");
-  drawLineChart("foodChart", "シロフクロウ", "food", "給餌量");
+  drawLineChart("tempChart", "シロフクロウ", "temp", "室温(℃)",limit.min,limit.max);
+  drawLineChart("humidityChart", "シロフクロウ", "humidity", "湿度(%)",limit.min,limit.max);
+  drawLineChart("foodChart", "シロフクロウ", "food", "給餌量",limit.min,limit.max);
+
+  drawLineChart("temp1Chart", "フンボルトペンギン", "temp1", "水温(℃)", limit.min,limit.max);
+  drawLineChart("tempChart", "フンボルトペンギン", "temp", "室温(℃)",limit.min,limit.max);
+  drawLineChart("humidityChart", "フンボルトペンギン", "humidity", "湿度(%)",limit.min,limit.max);
+  drawLineChart("foodChart", "フンボルトペンギン", "food", "給餌量",limit.min,limit.max);
+
+  drawLineChart("temp1Chart", "第1水槽", "temp1", "水温(℃)", limit.min,limit.max);
+  drawLineChart("tempChart", "第1水槽", "temp", "室温(℃)",limit.min,limit.max);
+  drawLineChart("humidityChart", "第1水槽", "humidity", "湿度(%)",limit.min,limit.max);
+  drawLineChart("foodChart", "第1水槽", "food", "給餌量",limit.min,limit.max);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
