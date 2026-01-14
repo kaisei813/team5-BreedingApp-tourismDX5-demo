@@ -85,7 +85,7 @@ function getEntityInfo(pageId) {
     },
 
     // 第1水槽
-    "management-bannaisuisou-suisou1": {
+    "management-bannaisuisou": {
       animal: "第1水槽",
       area: "ばんない水槽"
     }
