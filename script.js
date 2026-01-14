@@ -70,6 +70,31 @@ function handleDateChange(inputEl) {
   loadDailyRecord(pageId, selectedDate);
 }
 
+//管理対象・エリア対応表
+function getEntityInfo(pageId) {
+  const map = {
+    // シロフクロウ
+    "management-kahunomori-shirohuku": {
+      animal: "シロフクロウ",
+      area: "カフーの森"
+    },
+
+    // フンボルトペンギン
+    "management-pengingusuku": {
+      animal: "フンボルトペンギン",
+      area: "ペンギンぐすく"
+    },
+
+    // 第1水槽
+    "management-bannaisuisou-suisou1": {
+      animal: "第1水槽",
+      area: "ばんない水槽"
+    }
+  };
+
+  return map[pageId] || null;
+}
+
 // --- 保存機能 ---
 function saveDailyRecord() {
   const activePage = document.querySelector('.page.active');
@@ -107,15 +132,19 @@ function saveDailyRecord() {
     fishData: getFishTableData(activePage)
   };
 
-  saveEnvData({
-    area: "カフーの森",
-    animal: "シロフクロウ",
-    date: document.querySelector('input[type="date"]').value,
-    temp: Number(document.querySelector(".sheetTemp")?.value),
-    humidity: Number(document.querySelector(".sheetHumidity")?.value),
-    food: Number(document.querySelector(".sheetFood")?.value)
-  });
-
+  const entity = getEntityInfo(pageId);
+  if(entity) {
+    saveEnvData({
+      area: entity.area,
+      animal: entity.animal,
+      date,
+      temp1: Number(activePage.querySelector(".sheetTemp1")?.value),
+      temp: Number(activePage.querySelector(".sheetTemp")?.value),
+      humidity: Number(activePage.querySelector(".sheetHumidity")?.value),
+      food: Number(activePage.querySelector(".sheetFood")?.value)
+    });
+  }
+  
   saveToStorage();
   alert(`${date} のデータを保存しました`);
 }
