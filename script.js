@@ -449,6 +449,10 @@ function showPage(pageId, push = true) {
   if (pageId === "datacontrol") {
     setTimeout(renderDataControlCharts, 0);
   }
+
+  if (pageId === "datacontrol-redline") {
+    setTimeout(renderAllAbnormalList, 0);
+  }
 }
 
 function getAbnormalRecords(animal, key, min, max) {
@@ -459,6 +463,44 @@ function getAbnormalRecords(animal, key, min, max) {
     typeof d[key] === "number" &&
     (d[key] < min || d[key] > max)
   );
+}
+
+function renderAllAbnormalList() {
+  const list = document.getElementById("abnormalList");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  const data = JSON.parse(localStorage.getItem("envData") || "[]");
+  let hasAbnormal = false;
+
+  data.forEach(d => {
+    const limits = LIMITS[d.animal];
+    if (!limits) return;
+
+    Object.keys(limits).forEach(key => {
+      const value = d[key];
+      if (typeof value !== "number") return;
+
+      const { min, max } = limits[key];
+      if (value < min || value > max) {
+        hasAbnormal = true;
+
+        const li = document.createElement("li");
+        const status = value > max ? "上限超過" : "下限未満";
+
+        li.textContent =
+          `${d.date}｜${d.area}｜${d.animal}｜${key}：${value}（${status}）`;
+
+        li.style.color = value > max ? "red" : "blue";
+        list.appendChild(li);
+      }
+    });
+  });
+
+  if (!hasAbnormal) {
+    list.innerHTML = "<li>異常はありません</li>";
+  }
 }
 
 function renderAbnormalList(animal, key, label, min, max) {
