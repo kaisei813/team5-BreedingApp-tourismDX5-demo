@@ -306,17 +306,14 @@ function calcAverage(arr) {
   return arr.reduce((sum, v) => sum + v, 0) / arr.length;
 }
 
-function drawLineChart(canvasId, animal, key, label, min, max, area=null) {
+function drawLineChart(canvasId, animal, key, label, min, max) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
   const raw = JSON.parse(localStorage.getItem("envData") || "[]");
 
   const filtered = raw
-    .filter(d => d.animal === animal &&
-      (!area || d.area === area) && 
-      typeof d[key] === "number"
-    )
+    .filter(d => d.animal === animal && typeof d[key] === "number")
     .sort((a, b) => new Date(a.date) - new Date(b.date))
     .slice(-5);
 
@@ -396,10 +393,10 @@ function renderDataControlCharts() {
 
   //第1水槽
   const sw1 = LIMITS["第1水槽"];
-  drawLineChart("temp1Chart", "第1水槽", "temp1", "水温(℃)", sw1.temp1.min,sw1.temp1.max);
-  drawLineChart("tempChart", "第1水槽", "temp", "室温(℃)",sw1.temp.min,sw1.temp.max);
-  drawLineChart("humidityChart", "第1水槽", "humidity", "湿度(%)",sw1.humidity.min,sw1.humidity.max);
-  drawLineChart("foodChart", "第1水槽", "food", "給餌量",sw1.food.min,sw1.food.max);
+  drawLineChart("sw1-temp1", "第1水槽", "temp1", "水温(℃)", sw1.temp1.min,sw1.temp1.max);
+  drawLineChart("sw1-temp", "第1水槽", "temp", "室温(℃)",sw1.temp.min,sw1.temp.max);
+  drawLineChart("sw1-humidity", "第1水槽", "humidity", "湿度(%)",sw1.humidity.min,sw1.humidity.max);
+  drawLineChart("sw1-food", "第1水槽", "food", "給餌量",sw1.food.min,sw1.food.max);
 }
 
 function showPage(pageId, push = true) {
