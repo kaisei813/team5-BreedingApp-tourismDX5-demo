@@ -662,6 +662,7 @@ main {
   box-sizing: border-box;
   scroll-behavior: smooth;
   width: 100%;
+  height: auto;
 }
 
 .datacontrol-card {
