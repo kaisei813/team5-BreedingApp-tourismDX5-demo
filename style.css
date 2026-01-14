@@ -647,12 +647,11 @@ main {
   border-radius: 10px;
   font-size: 20px;
   font-weight: bold;
-  text-align: left;
-  padding-left: 5%;
+  text-align: center;
   cursor: pointer;
   color: white;
 
-  background-color: #27b070;
+  background-color: #e7093d;
 }
 
 .datacontrol-container {
