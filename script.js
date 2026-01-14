@@ -9,7 +9,6 @@ let feedChart = null;
 // --- 初期化処理 ---
 window.addEventListener('load', () => {
   loadFromStorage();
-  // 初期ページを表示
   showPage('home', false);
 });
 
