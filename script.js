@@ -262,10 +262,23 @@ function addFeedData() {
   feedChart.update();
 }
 
-function saveEnvData(record) {
-  const data = JSON.parse(localStorage.getItem("envData") || "[]");
-  data.push(record);
-  localStorage.setItem("envData", JSON.stringify(data));
+function saveEnvData(newData) {
+  const existing =
+    JSON.parse(localStorage.getItem("envData")) || [];
+
+  const index = existing.findIndex(d =>
+    d.animal === newData.animal &&
+    d.area === newData.area &&
+    d.date === newData.date
+  );
+
+  if (index >= 0) {
+    existing[index] = newData; // 更新
+  } else {
+    existing.push(newData);    // 追加
+  }
+
+  localStorage.setItem("envData", JSON.stringify(existing));
 }
 
 const LIMITS = {
@@ -275,7 +288,8 @@ const LIMITS = {
     food: { min: 0.8, max: 1.5 }
   },
   "フンボルトペンギン": {
-    temp: { min: 15, max: 20 },
+    temp1: { min: 10, max: 20},
+    temp: { min: 18, max: 25 },
     humidity: { min: 50, max: 80 },
     food: { min: 1.5, max: 3.0 }
   },
@@ -299,7 +313,10 @@ function drawLineChart(canvasId, animal, key, label, min, max) {
   const raw = JSON.parse(localStorage.getItem("envData") || "[]");
 
   const filtered = raw
-    .filter(d => d.animal === animal && typeof d[key] === "number")
+    .filter(d => d.animal === animal &&
+      (!area || d.area === area) && 
+      typeof d[key] === "number"
+    )
     .sort((a, b) => new Date(a.date) - new Date(b.date))
     .slice(-5);
 
@@ -378,7 +395,7 @@ function renderDataControlCharts() {
   drawLineChart("peng-food", "フンボルトペンギン", "food", "餌量", peng.food.min, peng.food.max);
 
   //第1水槽
-  const wa1 = LIMITS["第1水槽"];
+  const sw1 = LIMITS["第1水槽"];
   drawLineChart("temp1Chart", "第1水槽", "temp1", "水温(℃)", sw1.temp1.min,sw1.temp1.max);
   drawLineChart("tempChart", "第1水槽", "temp", "室温(℃)",sw1.temp.min,sw1.temp.max);
   drawLineChart("humidityChart", "第1水槽", "humidity", "湿度(%)",sw1.humidity.min,sw1.humidity.max);
@@ -421,8 +438,8 @@ function renderAbnormalList(animal, key, label, min, max) {
     const li = document.createElement("li");
 
     let status = "";
-    if (r[key] > limitmax) status = "上限超過";
-    if (r[key] < limitmin) status = "下限未満";
+    if (r[key] > max) status = "上限超過";
+    if (r[key] < min) status = "下限未満";
 
     li.textContent = `${r.date}：${label} ${r[key]}（${status}）`;
     li.style.color = status === "上限超過" ? "red" : "blue";
