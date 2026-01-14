@@ -665,7 +665,7 @@ main {
 }
 
 .datacontrol-card {
-  width: 0 0 50mm; /*横に6枠収まる用設定 */
+  flex: 0 0 50mm; /*横に6枠収まる用設定 */
   /*max-width: 300px; /*最大幅を16%で設定*/
   height: 85mm;  /*高さを固定*/
   background-color: #ffffff61;

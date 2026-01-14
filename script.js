@@ -268,102 +268,16 @@ function saveEnvData(record) {
   localStorage.setItem("envData", JSON.stringify(data));
 }
 
-const limit = LIMITS["シロフクロウ"].temp;
-function drawLineChart(canvasId, animal, key, label, limitmin, limitmax) {
-  const raw = JSON.parse(localStorage.getItem("envData") || "[]");
-
-  const filtered = raw
-    .filter(d => d.animal === animal && d[key] !== undefined)
-    .sort((a, b) => new Date(a.date) - new Date(b.date))
-    .slice(-5); // 今日＋過去4日
-
-  const labels = filtered.map(d => d.date);
-  const values = filtered.map(d => d[key]);
-
-  const avg = calcAverage(values);
-
-  // 点の色を条件で変える
-  const pointColors = values.map(v => {
-    if (v > limitmax) return "red";       // 上回り
-    if (v < limitmin) return "blue";      // 下回り
-    return "#4caf50";                // 正常
-  });
-
-  new Chart(document.getElementById(canvasId), {
-    type: "line",
-    data: {
-      labels,
-      datasets: [
-
-        {
-          label,
-          data: values,
-          borderWidth: 2,
-          tension: 0.3,
-          pointBackgroundColor: pointColors,
-          pointRadius: 5
-        },
-
-        // 平均線
-        {
-          label: "平均",
-          data: Array(values.length).fill(avg),
-          borderDash: [6, 6],
-          borderColor: "#999",
-          pointRadius: 0
-        },
-
-        // 下限基準線
-        {
-          label: "下限",
-          data: Array(values.length).fill(min),
-          borderDash: [4, 4],
-          borderColor: "blue",
-          pointRadius: 0
-        },
-
-        // 上限基準線
-        {
-          label: "上限",
-          data: Array(values.length).fill(max),
-          borderDash: [4, 4],
-          borderColor: "red",
-          pointRadius: 0
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          labels: {
-            filter: item => item.text !== label // 実データ以外は非表示でもOK
-          }
-        }
-      }
-    },
-    scales: {
-      x: {
-        title: { display: true, text: "日付" }
-      },
-      y: {
-        title: { display: true, text: label }
-      }
-    }
-  });
-}
-
 const LIMITS = {
   "シロフクロウ": {
-    temp: { min: 20, max: 34 },
+    temp: { min: 20, max: 26 },
     humidity: { min: 40, max: 70 },
     food: { min: 0.8, max: 1.5 }
   },
   "フンボルトペンギン": {
-    temp1: { min: 10, max: 30 },
-    temp: { min: 20, max:35 },
-    humidity: { min: 40, max: 60 },
-    food: { min: 0.8, max:1.0}
+    temp: { min: 15, max: 20 },
+    humidity: { min: 50, max: 80 },
+    food: { min: 1.5, max: 3.0 }
   },
   "第1水槽": {
     temp1: { min: 20, max: 40 },
@@ -374,47 +288,129 @@ const LIMITS = {
 };
 
 function calcAverage(arr) {
-  if (arr.length === 0) return null;
+  if (!arr || arr.length === 0) return null;
   return arr.reduce((sum, v) => sum + v, 0) / arr.length;
 }
 
-function initEnvironmentCharts() {
-  drawLineChart("tempChart", "シロフクロウ", "temp", "室温(℃)",limit.min,limit.max);
-  drawLineChart("humidityChart", "シロフクロウ", "humidity", "湿度(%)",limit.min,limit.max);
-  drawLineChart("foodChart", "シロフクロウ", "food", "給餌量",limit.min,limit.max);
+function drawLineChart(canvasId, animal, key, label, min, max) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
 
-  drawLineChart("temp1Chart", "フンボルトペンギン", "temp1", "水温(℃)", limit.min,limit.max);
-  drawLineChart("tempChart", "フンボルトペンギン", "temp", "室温(℃)",limit.min,limit.max);
-  drawLineChart("humidityChart", "フンボルトペンギン", "humidity", "湿度(%)",limit.min,limit.max);
-  drawLineChart("foodChart", "フンボルトペンギン", "food", "給餌量",limit.min,limit.max);
+  const raw = JSON.parse(localStorage.getItem("envData") || "[]");
 
-  drawLineChart("temp1Chart", "第1水槽", "temp1", "水温(℃)", limit.min,limit.max);
-  drawLineChart("tempChart", "第1水槽", "temp", "室温(℃)",limit.min,limit.max);
-  drawLineChart("humidityChart", "第1水槽", "humidity", "湿度(%)",limit.min,limit.max);
-  drawLineChart("foodChart", "第1水槽", "food", "給餌量",limit.min,limit.max);
+  const filtered = raw
+    .filter(d => d.animal === animal && typeof d[key] === "number")
+    .sort((a, b) => new Date(a.date) - new Date(b.date))
+    .slice(-5);
+
+  if (filtered.length === 0) return;
+
+  const labels = filtered.map(d => d.date);
+  const values = filtered.map(d => d[key]);
+  const avg = calcAverage(values);
+
+  const pointColors = values.map(v => {
+    if (v > max) return "red";
+    if (v < min) return "blue";
+    return "#4caf50";
+  });
+
+  // 既存Chart破棄
+  if (canvas.chart) {
+    canvas.chart.destroy();
+  }
+
+  canvas.chart = new Chart(canvas, {
+    type: "line",
+    data: {
+      labels,
+      datasets: [
+        {
+          label,
+          data: values,
+          tension: 0.3,
+          pointRadius: 5,
+          pointBackgroundColor: pointColors,
+          borderWidth: 2
+        },
+        {
+          label: "平均",
+          data: Array(values.length).fill(avg),
+          borderDash: [6, 6],
+          pointRadius: 0,
+          borderColor: "#999"
+        },
+        {
+          label: "下限",
+          data: Array(values.length).fill(min),
+          borderDash: [4, 4],
+          pointRadius: 0,
+          borderColor: "blue"
+        },
+        {
+          label: "上限",
+          data: Array(values.length).fill(max),
+          borderDash: [4, 4],
+          pointRadius: 0,
+          borderColor: "red"
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  initEnvironmentCharts();
-})
+function renderDataControlCharts() {
+  // シロフクロウ
+  const shiro = LIMITS["シロフクロウ"];
+  drawLineChart("shiro-temp", "シロフクロウ", "temp", "室温", shiro.temp.min, shiro.temp.max);
+  drawLineChart("shiro-humidity", "シロフクロウ", "humidity", "湿度", shiro.humidity.min, shiro.humidity.max);
+  drawLineChart("shiro-food", "シロフクロウ", "food", "餌量", shiro.food.min, shiro.food.max);
 
-function getAbnormalRecords(animal, key, limitmin, limitmax) {
+  // ペンギン
+  const peng = LIMITS["フンボルトペンギン"];
+  drawLineChart("peng-temp1", "フンボルトペンギン", "temp1", "水温", peng.temp1.min, peng.temp1.max);
+  drawLineChart("peng-temp", "フンボルトペンギン", "temp", "室温", peng.temp.min, peng.temp.max);
+  drawLineChart("peng-humidity", "フンボルトペンギン", "humidity", "湿度", peng.humidity.min, peng.humidity.max);
+  drawLineChart("peng-food", "フンボルトペンギン", "food", "餌量", peng.food.min, peng.food.max);
+
+  //第1水槽
+  const wa1 = LIMITS["第1水槽"];
+  drawLineChart("temp1Chart", "第1水槽", "temp1", "水温(℃)", sw1.temp1.min,sw1.temp1.max);
+  drawLineChart("tempChart", "第1水槽", "temp", "室温(℃)",sw1.temp.min,sw1.temp.max);
+  drawLineChart("humidityChart", "第1水槽", "humidity", "湿度(%)",sw1.humidity.min,sw1.humidity.max);
+  drawLineChart("foodChart", "第1水槽", "food", "給餌量",sw1.food.min,sw1.food.max);
+}
+
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(pageId).classList.add("active");
+
+  if (pageId === "datacontrol") {
+    setTimeout(renderDataControlCharts, 0);
+  }
+}
+
+function getAbnormalRecords(animal, key, min, max) {
   const data = JSON.parse(localStorage.getItem("envData") || "[]");
 
   return data.filter(d =>
     d.animal === animal &&
     typeof d[key] === "number" &&
-    (d[key] < limitmin || d[key] > limitmax)
+    (d[key] < min || d[key] > max)
   );
 }
 
-function renderAbnormalList(animal, key, label, limitmin, limitmax) {
+function renderAbnormalList(animal, key, label, min, max) {
   const list = document.getElementById("abnormalList");
   if (!list) return;
 
   list.innerHTML = "";
 
-  const records = getAbnormalRecords(animal, key, limitmin, limitmax);
+  const records = getAbnormalRecords(animal, key, min, max);
 
   if (records.length === 0) {
     list.innerHTML = "<li>異常はありません</li>";
