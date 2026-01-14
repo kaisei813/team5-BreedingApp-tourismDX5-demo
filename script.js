@@ -73,7 +73,7 @@ function handleDateChange(inputEl) {
 function getEntityInfo(pageId) {
   const map = {
     // シロフクロウ
-    "management-kahunomori-shirohuku": {
+    "management-shirohuku": {
       animal: "シロフクロウ",
       area: "カフーの森"
     },
