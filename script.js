@@ -306,7 +306,7 @@ function calcAverage(arr) {
   return arr.reduce((sum, v) => sum + v, 0) / arr.length;
 }
 
-function drawLineChart(canvasId, animal, key, label, min, max) {
+function drawLineChart(canvasId, animal, key, label, min, max, area=null) {
   const canvas = document.getElementById(canvasId);
   if (!canvas) return;
 
@@ -402,10 +402,25 @@ function renderDataControlCharts() {
   drawLineChart("foodChart", "第1水槽", "food", "給餌量",sw1.food.min,sw1.food.max);
 }
 
-function showPage(pageId) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  document.getElementById(pageId).classList.add("active");
+function showPage(pageId, push = true) {
+  const target = document.getElementById(pageId);
+  if (!target) return;
 
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  target.classList.add("active");
+
+  if (push) {
+    history.pushState({ page: pageId }, "", "#" + pageId);
+  }
+
+  // 日付入力初期化
+  const dateInput = target.querySelector('input[type="date"]');
+  if (dateInput && !dateInput.value) {
+    dateInput.value = new Date().toISOString().split('T')[0];
+    loadDailyRecord(pageId, dateInput.value);
+  }
+
+  // グラフ描画
   if (pageId === "datacontrol") {
     setTimeout(renderDataControlCharts, 0);
   }
