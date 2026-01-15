@@ -1108,6 +1108,23 @@
 
         <!--AI分析画面-->
         <section class="page" id="AI">
+            <h2>飼育支援AI</h2>
+
+            <label>対象生物</label>
+            <select id="ai-animal">
+                <option value="シロフクロウ">シロフクロウ</option>
+                <option value="フンボルトペンギン">フンボルトペンギン</option>
+                <ontion value="第1水槽">第1水槽</ontion>
+            </select>
+
+            <label>質問</label>
+            <textarea id="ai-question" placeholder="例：現在の状態で注意点は？"></textarea>
+
+            <button onclick="askAI()">AIに質問</button>
+
+            <div id="ai-result" class="ai-result"></div>
+        </section>
+            <!--
             <iframe
                 id="aiFrame"
                 src="https://xxxx.gradio.live"
@@ -1115,6 +1132,7 @@
                 height="100vh"
                 style="border:none;">
             </iframe>
+            -->
         </section>
     </main>
 

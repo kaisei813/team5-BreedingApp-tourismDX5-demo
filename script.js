@@ -576,3 +576,83 @@ function buildAIPrompt(animal, area) {
   `;
   return text;
 }
+
+//環境データ取得
+function getLatestEnvData(animal) {
+  const data = JSON.parse(localStorage.getItem("envData") || "[]");
+
+  const filtered = data
+    .filter(d => d.animal === animal)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  return filtered[0] || null;
+}
+
+//AIに質問
+function askAI() {
+  const animal = document.getElementById("ai-animal").value;
+  const question = document.getElementById("ai-question").value;
+  const resultBox = document.getElementById("ai-result");
+
+  if (!question) {
+    resultBox.textContent = "質問を入力してください";
+    return;
+  }
+
+  const latest = getLatestEnvData(animal);
+
+  if (!latest) {
+    resultBox.textContent = "対象データが見つかりません";
+    return;
+  }
+
+  const payload = {
+    animal: animal,
+    environment: {
+      temp1: latest.temp1 ?? null,
+      temp: latest.temp ?? null,
+      humidity: latest.humidity ?? null,
+      food: latest.food ?? null
+    },
+    question: question
+  };
+
+  resultBox.textContent = "AIが解析中です…";
+
+  fetch("http://127.0.0.1:5500/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  })
+    .then(res => res.json())
+    .then(data => {
+      renderAIResult(data);
+    })
+    .catch(err => {
+      console.error(err);
+      resultBox.textContent = "AIとの通信に失敗しました";
+    });
+}
+
+//AIの回答
+function renderAIResult(data) {
+  const box = document.getElementById("ai-result");
+
+  box.innerHTML = `
+    <h3>AIの判断</h3>
+    <p><strong>質問：</strong>${data.question}</p>
+
+    <p><strong>要約：</strong></p>
+    <ul>
+      ${data.summary.map(s => `<li>${s}</li>`).join("")}
+    </ul>
+
+    <p><strong>理由：</strong></p>
+    <ul>
+      ${data.reason.map(r => `<li>${r}</li>`).join("")}
+    </ul>
+
+    <p><strong>提案：</strong>${data.advice}</p>
+  `;
+}
+
