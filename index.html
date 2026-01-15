@@ -1105,11 +1105,22 @@
                 <li>appカスタマーセンター<br><a href="tel:08039511153">0120-000-0000</a></li>
             </ul>
         </section>
+
+        <!--AI分析画面-->
+        <section class="page" id="AI">
+            <iframe
+                id="aiFrame"
+                src="https://xxxx.gradio.live"
+                width="100%"
+                height="100vh"
+                style="border:none;">
+            </iframe>
+        </section>
     </main>
 
     <footer class="footer">
       <button class="footer-btn" onclick="goHome()">🏠<br>ホーム</button>
-      <button class="footer-btn">AI<br>機能</button>
+      <button class="footer-btn" onclick="openAI()">AI<br>機能</button>
       <button class="footer-btn" onclick="openPhone()">📞<br>電話</button>
       <button class="footer-btn" onclick="goBack()">◂<br>戻る</button>
       <button class="footer-btn" onclick="goForward()">▸<br>進む</button>

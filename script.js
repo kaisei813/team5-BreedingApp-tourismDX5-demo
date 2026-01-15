@@ -58,6 +58,7 @@ window.onpopstate = function (event) {
 
 // --- ナビゲーション関数 ---
 function goHome() { showPage("home"); }
+function openAI() { showPage("AI"); }
 function openPhone() { showPage("phone"); }
 function goBack() { history.back(); }
 function goForward() { history.forward(); }
@@ -528,4 +529,50 @@ function renderAbnormalList(animal, key, label, min, max) {
 
     list.appendChild(li);
   });
+}
+
+function buildAIPrompt(animal, area) {
+  const env = JSON.parse(localStorage.getItem("envData") || "[]");
+
+  const recent = env
+    .filter(d => d.animal === animal)
+    .sort((a,b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3);
+
+  if (recent.length === 0) {
+    return "データが不足しています。";
+  }
+
+  let text = `
+    対象生物：${animal}
+    エリア：${area}
+    直近の環境データ：
+    `;
+
+  recent.forEach(d => {
+    text += `
+      日付：${d.date}
+      水温：${d.temp1 ?? "―"}℃
+      室温：${d.temp ?? "―"}℃
+      湿度：${d.humidity ?? "―"}%
+      給餌量：${d.food ?? "―"}
+    `;
+  });
+
+  const limits = LIMITS[animal];
+  if (limits) {
+    text += `\n管理基準値：\n`;
+    Object.entries(limits).forEach(([k,v]) => {
+      text += `${k}: ${v.min}〜${v.max}\n`;
+    });
+  }
+
+  text += `
+    この情報をもとに、
+    ・現在の生物の状態推定
+    ・考えられる問題点
+    ・飼育員が注意すべき点
+    を専門的に説明してください。
+  `;
+  return text;
 }
