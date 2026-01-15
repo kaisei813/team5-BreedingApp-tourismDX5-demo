@@ -531,7 +531,6 @@ function renderAbnormalList(animal, key, label, min, max) {
   });
 }
 
-/*
 function buildAIPrompt(animal, area) {
   const env = JSON.parse(localStorage.getItem("envData") || "[]");
 
@@ -577,7 +576,6 @@ function buildAIPrompt(animal, area) {
   `;
   return text;
 }
-*/
 
 //環境データ取得
 function getLatestEnvData(animal) {
