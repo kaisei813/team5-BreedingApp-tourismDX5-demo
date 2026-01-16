@@ -619,7 +619,7 @@ function askAI() {
 
   resultBox.textContent = "AIが解析中です…";
 
-  fetch("http://127.0.0.1:5500/ask", {
+  fetch("http://127.0.0.1:8000/ask", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
