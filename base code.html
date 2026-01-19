@@ -336,6 +336,10 @@
                             <td><input type="number" class="sheetTemp1"></td>
                         </tr>
                         <tr>
+                            <td>水質(%)</td>
+                            <td><input type="number" class="sheetwater"></td>
+                        </tr>
+                        <tr>
                             <td>室温(℃)</td>
                             <td><input type="number" class="sheetTemp"></td>
                         </tr>
@@ -571,6 +575,10 @@
                         <tr>
                             <td>水温(℃)</td>
                             <td><input type="number" class="sheetTemp1"></td>
+                        </tr>
+                        <tr>
+                            <td>水質(%)</td>
+                            <td><input type="number" class="sheetwater"></td>
                         </tr>
                         <tr>
                             <td>室温(℃)</td>
@@ -961,6 +969,13 @@
                         </p>
                     </div>
                     <div class="datacontrol-card">
+                        <canvas id="peng-water" height="160"></canvas>
+                        <h4>水質推移表</h4>
+                        <p>平均値：<br>
+                            基準値：<br>
+                        </p>
+                    </div>
+                    <div class="datacontrol-card">
                         <canvas id="peng-temp" height="160"></canvas>
                         <h4>室温推移表</h4>
                         <p>平均値：<br>
@@ -991,6 +1006,13 @@
                     <div class="datacontrol-card">
                         <canvas id="sw1-temp1" height="160"></canvas>
                         <h4>水温推移表</h4>
+                        <p>平均値：<br>
+                            基準値：<br>
+                        </p>
+                    </div>
+                    <div class="datacontrol-card">
+                        <canvas id="sw1-water" height="160"></canvas>
+                        <h4>水質推移表</h4>
                         <p>平均値：<br>
                             基準値：<br>
                         </p>

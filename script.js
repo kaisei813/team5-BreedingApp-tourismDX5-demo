@@ -123,6 +123,7 @@ function saveDailyRecord() {
     },
     environment: {
       waterTemp: activePage.querySelector('.sheetTemp1')?.value || null,
+      waterquality: activePage.querySelector('.sheetwater')?.value || null,
       roomTemp: activePage.querySelector('.sheetTemp')?.value || null,
       humidity: activePage.querySelector('.sheetHumidity')?.value || null,
       foodTotal: activePage.querySelector('.sheetFood')?.value || null,
@@ -139,6 +140,7 @@ function saveDailyRecord() {
       animal: entity.animal,
       date,
       temp1: Number(activePage.querySelector(".sheetTemp1")?.value),
+      water: Number(activePage.querySelector(".sheetwater")?.value),
       temp: Number(activePage.querySelector(".sheetTemp")?.value),
       humidity: Number(activePage.querySelector(".sheetHumidity")?.value),
       food: Number(activePage.querySelector(".sheetFood")?.value)
@@ -185,6 +187,7 @@ function loadDailyRecord(pageId, date) {
   if (staffInputs[1]) staffInputs[1].value = record.staff?.staff2 || '';
 
   const waterTemp = activePage.querySelector('.sheetTemp1');
+  const waterquality = activePage.querySelector('.sheetwater');
   const roomTemp = activePage.querySelector('.sheetTemp');
   const humidity = activePage.querySelector('.sheetHumidity');
   const foodTotal = activePage.querySelector('.sheetFood');
@@ -193,6 +196,7 @@ function loadDailyRecord(pageId, date) {
   const manegmentCheck = activePage.querySelector('.manegment-check');
 
   if (waterTemp) waterTemp.value = record.environment?.waterTemp || '';
+  if (waterquality) waterquality.value = record.environment?.waterquality || '';
   if (roomTemp) roomTemp.value = record.environment?.roomTemp || '';
   if (humidity) humidity.value = record.environment?.humidity || '';
   if (foodTotal) foodTotal.value = record.environment?.foodTotal || '';
@@ -318,12 +322,14 @@ const LIMITS = {
   },
   "フンボルトペンギン": {
     temp1: { min: 10, max: 20},
+    water: { min: 78, max: 95},
     temp: { min: 18, max: 25 },
     humidity: { min: 50, max: 80 },
     food: { min: 1.5, max: 3.0 }
   },
   "第1水槽": {
     temp1: { min: 20, max: 40 },
+    water: { min: 89, max: 97 },
     temp: { min: 25, max: 30 },
     humidity: { min: 30, max: 50 },
     food: { min: 0.2, max: 0.5 }
@@ -409,23 +415,25 @@ function drawLineChart(canvasId, animal, key, label, min, max) {
 function renderDataControlCharts() {
   // シロフクロウ
   const shiro = LIMITS["シロフクロウ"];
-  drawLineChart("shiro-temp", "シロフクロウ", "temp", "室温", shiro.temp.min, shiro.temp.max);
-  drawLineChart("shiro-humidity", "シロフクロウ", "humidity", "湿度", shiro.humidity.min, shiro.humidity.max);
+  drawLineChart("shiro-temp", "シロフクロウ", "temp", "室温(℃)", shiro.temp.min, shiro.temp.max);
+  drawLineChart("shiro-humidity", "シロフクロウ", "humidity", "湿度(%)", shiro.humidity.min, shiro.humidity.max);
   drawLineChart("shiro-food", "シロフクロウ", "food", "餌量", shiro.food.min, shiro.food.max);
 
   // ペンギン
   const peng = LIMITS["フンボルトペンギン"];
-  drawLineChart("peng-temp1", "フンボルトペンギン", "temp1", "水温", peng.temp1.min, peng.temp1.max);
-  drawLineChart("peng-temp", "フンボルトペンギン", "temp", "室温", peng.temp.min, peng.temp.max);
-  drawLineChart("peng-humidity", "フンボルトペンギン", "humidity", "湿度", peng.humidity.min, peng.humidity.max);
+  drawLineChart("peng-temp1", "フンボルトペンギン", "temp1", "水温(℃)", peng.temp1.min, peng.temp1.max);
+  drawLineChart("peng-water", "フンボルトペンギン", "water", "水質(%)", peng.water.min, peng.water.max);
+  drawLineChart("peng-temp", "フンボルトペンギン", "temp", "室温(℃)", peng.temp.min, peng.temp.max);
+  drawLineChart("peng-humidity", "フンボルトペンギン", "humidity", "湿度(%)", peng.humidity.min, peng.humidity.max);
   drawLineChart("peng-food", "フンボルトペンギン", "food", "餌量", peng.food.min, peng.food.max);
 
   //第1水槽
   const sw1 = LIMITS["第1水槽"];
   drawLineChart("sw1-temp1", "第1水槽", "temp1", "水温(℃)", sw1.temp1.min,sw1.temp1.max);
+  drawLineChart("sw1-water", "第1水槽", "water", "水質(%)", sw1.water.min, sw1.water.max);
   drawLineChart("sw1-temp", "第1水槽", "temp", "室温(℃)",sw1.temp.min,sw1.temp.max);
   drawLineChart("sw1-humidity", "第1水槽", "humidity", "湿度(%)",sw1.humidity.min,sw1.humidity.max);
-  drawLineChart("sw1-food", "第1水槽", "food", "給餌量",sw1.food.min,sw1.food.max);
+  drawLineChart("sw1-food", "第1水槽", "food", "餌量",sw1.food.min,sw1.food.max);
 }
 
 function showPage(pageId, push = true) {
@@ -553,6 +561,7 @@ function buildAIPrompt(animal, area) {
     text += `
       日付：${d.date}
       水温：${d.temp1 ?? "―"}℃
+      水質：${d.water ?? "―"}%
       室温：${d.temp ?? "―"}℃
       湿度：${d.humidity ?? "―"}%
       給餌量：${d.food ?? "―"}
@@ -610,6 +619,7 @@ function askAI() {
     animal: animal,
     environment: {
       temp1: latest.temp1 ?? null,
+      water: latest.water ?? null,
       temp: latest.temp ?? null,
       humidity: latest.humidity ?? null,
       food: latest.food ?? null
