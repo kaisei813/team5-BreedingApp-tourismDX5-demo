@@ -348,7 +348,7 @@ function drawLineChart(canvasId, animal, key, label, min, max) {
   const raw = JSON.parse(localStorage.getItem("envData") || "[]");
 
   const filtered = raw
-    .filter(d => d.animal === animal && typeof d[key] === "number")
+    .filter(d => d.animal === animal && typeof d[key] === "number" && !Number.isNaN(d[key]))
     .sort((a, b) => new Date(a.date) - new Date(b.date))
     .slice(-5);
 
